@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>16 Tipos de Personalidad</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #333;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #555;
+            border-radius: 10px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .question-container {
+            background-color: #444;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            position: relative;
+            height: 200px;
+            overflow-y: auto;
+            text-align: left;
+        }
+
+        .question-number,
+        .question-text {
+            font-size: 18px;
+            margin-bottom: 10px;
+            max-height: 120px;
+            overflow-y: auto;
+        }
+
+        .question-number {
+            font-weight: bold;
+        }
+
+        .answer-buttons {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .answer-buttons button {
+            background-color: #777;
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 0 10px;
+        }
+
+        .answer-buttons button:hover {
+            background-color: #999;
+        }
+
+        .controls {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .controls button {
+            background-color: #777;
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 0 10px;
+        }
+
+        .controls button:hover {
+            background-color: #999;
+        }
+
+        .controls2 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .controls2 button {
+            background-color: #777;
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 0 10px;
+        }
+
+        .controls2 button:hover {
+            background-color: #999;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>16 Tipos de Personalidad</h1>
+        <div class="question-container">
+            <div class="question-number">1</div>
+            <div class="question-text">
+                ¿Qué Tipo de Personalidad Eres?<br>
+            </div>
+        </div>
+
+        <div class="answer-buttons">
+            <button onclick="answerQuestion(true)">Sí</button>
+            <button onclick="answerQuestion(false)">No</button>
+        </div>
+        <div class="controls">
+            <button onclick="previousQuestion()">◄ Anterior</button>
+            <button onclick="nextQuestion()">Siguiente ►</button>
+        </div>
+        <div class="controls2">
+        <button onclick="restartQuiz()">Inicio</button>
+        </div>
+    </div>
+
+    <script>
+        let currentQuestion = 1;
+        const totalQuestions = 16;
+        const questions = [
+            "¿Te consideras una persona controladora que busca que todo funcione como debe?",
+            "¿Eres espontáneo, alegre y activo, y tiendes a ejercer dominio sobre los demás?",
+            "¿Te volcas en atender las necesidades de los demás, especialmente de tu círculo cercano?",
+            "¿Disfrutas entreteniéndote y entreteniendo a los demás, siendo alegre y espontáneo?",
+            "¿Tienes un fuerte sentido de la moralidad y del deber, y te gusta planear e implementar sistemas de reglas?",
+            "¿Eres reservado, orientado a la acción y a las soluciones prácticas ante problemas cotidianos?",
+            "¿Te defines por proteger y ayudar a los demás, mostrándote confiable para los otros?",
+            "¿Vives en el aquí y el ahora, en busca constante de novedad y situaciones sensorialmente estimulantes?",
+            "¿Estás relacionado con el liderazgo y la asertividad, siendo comunicativo y analítico?",
+            "¿Te mueves por la curiosidad y los retos intelectualmente estimulantes?",
+            "¿Aprendes constantemente acerca de diversos ámbitos del conocimiento, guiando a otros en su evolución?",
+            "¿Tienes una propensión al pensamiento creativo, las artes y a la sociabilidad?",
+            "¿Estás orientado hacia la resolución de problemas específicos a través del razonamiento analítico?",
+            "¿Te defines por la propensión a la reflexión, valorando la exactitud en términos teóricos?",
+            "¿Eres sensible, reservado y estás movido por ideales definidos, buscando beneficiar a los demás?",
+            "¿Te preocupas por ayudar a los demás desde tu posición de persona reservada, mostrando sensibilidad estética y artística?"
+        ];
+        const answers = []; // Almacena las respuestas
+
+        function answerQuestion(isYes) {
+            answers[currentQuestion - 1] = isYes;
+            nextQuestion();
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < totalQuestions) {
+                currentQuestion++;
+                updateQuestion();
+            } else {
+                calculatePersonalityType();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 1) {
+                currentQuestion--;
+                updateQuestion();
+            }
+        }
+
+        function goToQuestion(questionNumber) {
+            currentQuestion = questionNumber;
+            updateQuestion();
+        }
+
+        function restartQuiz() {
+            location.reload(); // Recarga la página para reiniciar el quiz
+        }
+
+        function updateQuestion() {
+            const questionContainer = document.querySelector('.question-container');
+            const questionNumber = questionContainer.querySelector('.question-number');
+            const questionText = questionContainer.querySelector('.question-text');
+            const currentType = questions[currentQuestion - 1];
+
+            questionNumber.textContent = currentQuestion + ". ";
+            questionText.textContent = currentType;
+        }
+
+        function calculatePersonalityType() {
+            const personalityTypes = [
+                { number: 1, type: "ESTJ", description: "Personas a las que les gusta tener el control sobre lo que ocurre a su alrededor, siempre buscan la manera de que todo funcione como debe y, si es necesario, la implementan ellos mismos.", link: "https://www.personalitieslab.com/es/tipos-de-personalidad/personalidad-estj" },
+                { number: 2, type: "ESTP", description: "Las personas que pertenecen a esta categoría son espontáneas, alegres y activas, pero al igual que lo que ocurre con los ESTJ, tienden a ejercer dominio sobre los demás, en este caso a través de su capacidad de observación y su carisma.", link: "https://www.personalitieslab.com/es/tipos-de-personalidad/personalidad-estp" },
+                { number: 3, type: "ESFJ", description: "Se trata de personas muy volcadas en la atención de las necesidades de los demás, especialmente si forman parte de su círculo cercano: familia y amistades. Por eso siempre que pueden prestan su ayuda y procuran que sus círculos sociales cercanos permanezcan siempre estables y con buena salud.", link: "https://www.personalitieslab.com/es/tipos-de-personalidad/personalidad-esfj" },
+                { number: 4, type: "ESFP", description: "Personas alegres y espontáneas que disfrutan entreteniéndose y entreteniendo a los demás. La diversión es uno de los pilares más importantes de sus vidas, y son de trato cercano y temperamento cálido.", link: "https://www.personalitieslab.com/es/tipos-de-personalidad/personalidad-esfp" },
+                { number: 5, type: "ISTJ", description: "Un tipo de personalidad definido por su fuerte sentido de la moralidad y del deber. Les gusta planear e implementar sistemas de reglas que permitan que equipos y organizaciones funcionen con una clara lógica y orden.", link: "https://www.personalitieslab.com/es/tipos-de-personalidad/personalidad-istj" },
+                { number: 6, type: "ISTP", description: "Se trata de personas reservadas, orientadas a la acción y a las soluciones prácticas ante problemas del día a día. También son definidas por su tendencia hacia el pensamiento lógico y su espontaneidad y autonomía.", link: "https://www.personalitieslab.com/es/tipos-de-personalidad/personalidad-istp" },
+                { number: 7, type: "ISFJ", description: "Son personas definidas principalmente por sus ganas de proteger y ayudar a los demás y, en definitiva, de resultar confiables para los otros.", link: "https://www.personalitieslab.com/es/tipos-de-personalidad/personalidad-isfj" },
+                { number: 8, type: "ISFP", description: "Personas que viven totalmente en el aquí y el ahora, en constante búsqueda de la novedad y de las situaciones sensorialmente estimulantes.", link: "https://www.personalitieslab.com/es/tipos-de-personalidad/personalidad-isfp" },
+                { number: 9, type: "ENTJ", description: "Este es uno de los 16 tipos de personalidad más relacionados con el liderazgo y la asertividad. Las personas descritas por esta categoría son comunicativas, de pensamiento ágil y analítico y predispuestas a encabezar equipos y organizaciones.", link: "https://www.personalitieslab.com/es/tipos-de-personalidad/personalidad-entj" },
+                { number: 10, type: "ENTP", description: "Personas especialmente movidas por la curiosidad y por los retos que para ser resueltos requieren afrontar preguntas intelectualmente estimulantes.", link: "https://www.personalitieslab.com/es/tipos-de-personalidad/personalidad-entp" },
+                { number: 11, type: "ENFJ", description: "Personas que aprenden constantemente acerca de todos los ámbitos del conocimiento y ayudan a aprender a las demás, guiándolas en su propia evolución.", link: "https://www.personalitieslab.com/es/tipos-de-personalidad/personalidad-enfj" },
+                { number: 12, type: "ENFP", description: "Uno de los 16 tipos de personalidad con mayor propensión al pensamiento creativo, las artes y a la sociabilidad.", link: "https://www.personalitieslab.com/es/tipos-de-personalidad/personalidad-enfp" },
+                { number: 13, type: "INTJ", description: "Un tipo de personalidad orientado hacia la resolución de problemas específicos a partir del razonamiento analítico.", link: "https://www.personalitieslab.com/es/tipos-de-personalidad/personalidad-intj" },
+                { number: 14, type: "INTP", description: "Uno de los 16 tipos de personalidad más definido por la propensión a la reflexión.", link: "https://www.personalitieslab.com/es/tipos-de-personalidad/personalidad-intp" },
+                { number: 15, type: "INFJ", description: "Personas muy sensibles, reservadas y movidas por unos ideales muy definidos.", link: "https://www.personalitieslab.com/es/tipos-de-personalidad/personalidad-infj" },
+                { number: 16, type: "INFP", description: "Menos moralistas que los INFJ, los INFP también se preocupan mucho por ayudar a los demás desde su posición de personas reservadas.", link: "https://www.personalitieslab.com/es/tipos-de-personalidad/personalidad-infp" },
+            ];
+
+            const score = answers.reduce((total, answer) => total + (answer ? 1 : 0), 0);
+            const result = personalityTypes.find(type => type.number === score);
+            const resultContainer = document.querySelector('.question-container');
+            const answerButtons = document.querySelector('.answer-buttons');
+    const controls = document.querySelector('.controls');
+
+            resultContainer.innerHTML = "";
+
+            answerButtons.style.display = 'none'; // Oculta los botones Sí y No
+    controls.style.display = 'none'; // Oculta los botones Anterior y Siguiente
+
+            if (result) {
+                const resultHTML = `
+                    <h2>Tu tipo de personalidad es: ${result.type}</h2>
+                    <p>${result.description}</p>
+                    <a href="${result.link}" target="_blank" style="color: white; text-decoration: underline;">Más información sobre ${result.type}</a>
+                `;
+                resultContainer.innerHTML = resultHTML;
+            } else {
+                resultContainer.innerHTML = "<p>No se pudo determinar el tipo de personalidad.</p>";
+            }
+        }
+
+        window.addEventListener('load', updateQuestion);
+    </script>
+</body>
+
+</html>

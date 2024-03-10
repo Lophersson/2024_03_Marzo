@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard con gráfico y cálculos</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+  /* Estilos generales */
+  body {
+    background-color: #333;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  header {
+    background-image: url('header.png');
+    background-size: cover;
+    background-position: center;
+    padding: 20px;
+    text-align: center;
+  }
+
+  header h1 {
+    color: #d1d1d1;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 48px;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo gris oscuro translúcido */
+  }
+
+  .icons {
+    text-align: center; /* Centro los iconos */
+    margin-top: 10px;
+}
+
+.icons a {
+    margin-left: 10px;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    background-color: #007bff; /* Cambia el color de fondo a azul (por ejemplo) */
+    color: #fff; /* Color del icono */
+    border-radius: 50%; /* Asegura que los iconos sean circulares */
+    transition: transform 0.3s ease;
+    font-size: 20px; /* Tamaño de la fuente de icono */
+    text-decoration: none; /* Elimina cualquier subrayado */
+}
+
+.icons a:hover {
+    transform: scale(1.2);
+}
+
+  .widget h2 {
+    color: #ff00a6;
+    margin-top: 0;
+    font-weight: bold;
+    font-style: italic;
+  }
+
+  .widget {
+    background-color: #fuchsia;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    /*display: flex;
+    justify-content: center;
+    align-items: center;*/
+}
+
+  .neo {
+    border: none;
+    border-radius: 5px;
+    padding: 12px 12px;
+    font-weight: bold;
+    font-style: italic;
+    text-align: center;
+    font-size: 18px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    background-color: #444444;
+    color:rgb(200, 200, 200);
+    width: 273px;
+    height: auto;
+  }
+
+  /* Estilos para los widgets y gráfico */
+  .chart {
+    width: 200px;
+    height: 200px;
+    background-color: #444444;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+
+  .chartjs-render-monitor {
+    font-family: 'Arial', sans-serif;
+    font-weight: light;
+    font-style: italic;
+    text-align: center;
+    font-size: 12px;
+    color:#ff00a6;
+  }
+
+  .container { /*bloque que contiene las dos celdas*/
+    width: 80%;
+    margin: 0 auto;
+    padding-top: 20px;
+  }
+
+  .form-container {
+    margin: 10px; /* Puedes ajustar este valor según tus preferencias */
+}
+
+  .dashboard { /*separación entre las celdas*/
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 30px;
+  }
+
+  .result {
+    border: none;
+    padding: 12px 12px;
+    font-weight: bold;
+    font-style: italic;
+    text-align: center;
+    font-size: 36px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    color: #ff00a6;
+    width: 600px;
+    height: auto;
+  }
+
+  .cosa {
+    margin-top: 3px;
+    margin-bottom: 3px;
+    padding: 8px 12px;
+    width: 273px;
+    height: 30px;
+    background-color: #ff00a6;
+    border: none;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-style: italic;
+    text-align: right;
+    font-size: 18px;
+  }
+
+  button {
+    border: none;
+    border-radius: 5px;
+    padding: 12px 12px;
+    font-weight: bold;
+    font-style: italic;
+    text-align: center;
+    font-size: 18px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    background-color: #ff00a6;
+    color:rgb(255, 255, 255);
+    width: 552px;
+    height: auto;
+  }
+
+  button:hover {
+    background-color: #000000; /* Cambio de color al pasar el ratón */
+  }
+</style>
+</head>
+<body>
+    <header>
+        <h1>Dashboard de Finanzas</h1>
+        <div class="icons">
+            <a href="#" class="fab fa-whatsapp" target="_blank"></a>
+            <a href="#" class="fab fa-instagram" target="_blank"></a>
+            <a href="#" class="fab fa-linkedin" target="_blank"></a>
+            <a href="#" class="fab fa-github" target="_blank"></a>
+        </div>              
+      </header>
+<div class="container">
+  <div class="dashboard">
+    <div class="widget">
+      <h2>Introducir Datos</h2>
+      <div class="form-container">
+        <input class="neo" type="text" id="ingresos" placeholder="Ingresos (€)" oninput="calcular()">
+        <input class="neo" type="text" id="gastos" placeholder="Gastos (€)" oninput="calcular()">
+      </div>
+      <div class="result" id="resultado"></div>
+    </div>
+    <div class="widget">
+      <h2>Gráfico de Ingresos</h2>
+      <canvas id="incomeChart" class="chart"></canvas>
+    </div>
+    <div class="widget">
+      <h2>Gráfico de Gastos</h2>
+      <canvas id="expensesChart" class="chart"></canvas>
+    </div>
+    <div class="widget">
+      <h2>Gráfico de Diferencia</h2>
+      <canvas id="differenceChart" class="chart"></canvas>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Datos de ejemplo para ingresos y gastos
+  var ingresosData = [500, 800]; // Datos de ingresos
+  var gastosData = [200, 300]; // Datos de gastos
+
+  var ingresosChartCtx = document.getElementById('incomeChart').getContext('2d');
+  var gastosChartCtx = document.getElementById('expensesChart').getContext('2d');
+  var differenceChartCtx = document.getElementById('differenceChart').getContext('2d');
+
+  var ingresosChart = new Chart(ingresosChartCtx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Ingresos 1', 'Ingresos 2'],
+      datasets: [{
+        backgroundColor: ['#ff00a6', '#007bff'],
+        data: ingresosData
+      }]
+    },
+    options: {
+      plugins: {
+        legend: {
+          display: true,
+          position: 'bottom'
+        },
+        title: {
+          display: true,
+          text: 'Gráfico de Ingresos'
+        }
+      }
+    }
+  });
+
+  var gastosChart = new Chart(gastosChartCtx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Gastos 1', 'Gastos 2'],
+      datasets: [{
+        backgroundColor: ['#ff00a6', '#007bff'],
+        data: gastosData
+      }]
+    },
+    options: {
+      plugins: {
+        legend: {
+          display: true,
+          position: 'bottom'
+        },
+        title: {
+          display: true,
+          text: 'Gráfico de Gastos'
+        }
+      }
+    }
+  });
+
+  function calcular() {
+    var ingresos = parseFloat(document.getElementById("ingresos").value.replace(",", ".")) || 0;
+    var gastos = parseFloat(document.getElementById("gastos").value.replace(",", ".")) || 0;
+    var diferencia = ingresos - gastos;
+
+    document.getElementById("resultado").innerText = "Diferencia: " + diferencia.toFixed(2) + "€";
+
+    ingresosData = [ingresos, 0];
+    gastosData = [gastos, 0];
+
+    ingresosChart.data.datasets[0].data = ingresosData;
+    gastosChart.data.datasets[0].data = gastosData;
+
+    ingresosChart.update();
+    gastosChart.update();
+
+    var differenceChart = new Chart(differenceChartCtx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Ingresos', 'Gastos'],
+        datasets: [{
+          backgroundColor: ['#ff00a6', '#007bff'],
+          data: [ingresos, gastos]
+        }]
+      },
+      options: {
+        plugins: {
+          legend: {
+            display: true,
+            position: 'bottom'
+          },
+          title: {
+            display: true,
+            text: 'Gráfico de Diferencia'
+          }
+        }
+      }
+    });
+  }
+</script>
+</body>
+</html>

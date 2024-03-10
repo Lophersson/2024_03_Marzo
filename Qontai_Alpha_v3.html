@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard de Finanzas</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+  /* Estilos generales */
+  body {
+    background-color: #333;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  header {
+    background-image: url('header.png');
+    background-size: cover;
+    background-position: center;
+    padding: 20px;
+    text-align: center;
+  }
+
+  header h1 {
+    color: #00c8ff;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 48px;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo gris oscuro translúcido */
+  }
+
+  .icons {
+    text-align: center; /* Centro los iconos */
+    margin-top: 10px;
+}
+
+.icons a {
+    margin-left: 10px;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    background-color: #ff00a6;
+    color: #fff; /* Color del icono */
+    border-radius: 50%; /* Asegura que los iconos sean circulares */
+    transition: transform 0.3s ease;
+    font-size: 20px; /* Tamaño de la fuente de icono */
+    text-decoration: none; /* Elimina cualquier subrayado */
+}
+
+.icons a:hover {
+    transform: scale(1.2);
+}
+
+  .widget h2 {
+    color: #ff00a6;
+    margin-top: 0;
+    font-weight: bold;
+    font-style: italic;
+  }
+
+  .widget {
+    background-color: #fuchsia;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    /*display: flex;
+    justify-content: center;
+    align-items: center;*/
+}
+
+  .neo {
+    border: none;
+    border-radius: 5px;
+    padding: 12px 12px;
+    font-weight: bold;
+    font-style: italic;
+    text-align: center;
+    font-size: 18px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    background-color: #444444;
+    color:rgb(200, 200, 200);
+    width: 273px;
+    height: auto;
+  }
+
+  /* Estilos para los widgets y gráfico */
+  .chart {
+    width: 150px;
+    height: 150px;
+    background-color: #444444;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+
+  .container { /*bloque que contiene las dos celdas*/
+    width: 80%;
+    margin: 0 auto;
+    padding-top: 20px;
+  }
+
+  .form-container {
+    margin: 10px; /* Puedes ajustar este valor según tus preferencias */
+    display: flex;
+    flex-wrap: wrap;
+}
+
+  .dashboard { /*separación entre las celdas*/
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 30px;
+  }
+
+  .result1 {
+    border: none;
+    padding: 12px 12px;
+    font-weight: bold;
+    font-style: italic;
+    text-align: center;
+    font-size: 36px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    color: #ff00a6;
+    width: 600px;
+    height: auto;
+  }
+
+  .result2 {
+    border: none;
+    padding: 12px 12px;
+    font-weight: bold;
+    font-style: italic;
+    text-align: center;
+    font-size: 36px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    color: #ff00a6;
+    width: 600px;
+    height: auto;
+  }
+
+  .cosa {
+    margin-top: 3px;
+    margin-bottom: 3px;
+    padding: 8px 12px;
+    width: 273px;
+    height: 30px;
+    background-color: #ff00a6;
+    border: none;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-style: italic;
+    text-align: right;
+    font-size: 18px;
+  }
+
+  button {
+    border: none;
+    border-radius: 5px;
+    padding: 12px 12px;
+    font-weight: bold;
+    font-style: italic;
+    text-align: center;
+    font-size: 18px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    background-color: #ff00a6;
+    color:rgb(255, 255, 255);
+    width: 552px;
+    height: auto;
+  }
+
+  button:hover {
+    background-color: #000000; /* Cambio de color al pasar el ratón */
+  }
+</style>
+</head>
+<body>
+    <header>
+        <h1>Dashboard de Finanzas</h1>
+        <div class="icons">
+            <a href="#" class="fab fa-whatsapp" target="_blank"></a>
+            <a href="#" class="fab fa-instagram" target="_blank"></a>
+            <a href="#" class="fab fa-linkedin" target="_blank"></a>
+            <a href="#" class="fab fa-github" target="_blank"></a>
+        </div>              
+      </header>
+
+      <div class="container">
+        <div class="dashboard">
+          <div class="widget">
+            <h2>Gastos Por Mes</h2>
+            <div class="form-container">
+              <!-- Aquí agregamos los 18 inputs -->
+              <div class="column">
+                  <input class="neo" type="text" id="gasto1" placeholder="Piso (€)" oninput="calcularGastosPorMes()">
+                  <input class="neo" type="text" id="gasto2" placeholder="Seguro Coche (€)" oninput="calcularGastosPorMes()">
+                  <input class="neo" type="text" id="gasto3" placeholder="Electricidad (€)" oninput="calcularGastosPorMes()">
+                  <input class="neo" type="text" id="gasto4" placeholder="Mantenimiento Coche (€)" oninput="calcularGastosPorMes()">
+              </div>
+              <div class="column">
+                  <input class="neo" type="text" id="gasto5" placeholder="Agua (€)" oninput="calcularGastosPorMes()">
+                  <input class="neo" type="text" id="gasto6" placeholder="Combustible (€)" oninput="calcularGastosPorMes()">
+                  <input class="neo" type="text" id="gasto7" placeholder="Teléfono (€)" oninput="calcularGastosPorMes()">
+                  <input class="neo" type="text" id="gasto8" placeholder="Vida Social (€)" oninput="calcularGastosPorMes()">
+              </div>
+              <div class="column">
+                  <input class="neo" type="text" id="gasto9" placeholder="Comida (€)" oninput="calcularGastosPorMes()">
+                  <input class="neo" type="text" id="gasto10" placeholder="Ropa y calzado (€)" oninput="calcularGastosPorMes()">
+                  <input class="neo" type="text" id="gasto11" placeholder="Coche (€)" oninput="calcularGastosPorMes()">
+                  <input class="neo" type="text" id="gasto12" placeholder="Hogar (€)" oninput="calcularGastosPorMes()">
+              </div>
+              <div class="column">
+                  <input class="neo" type="text" id="gasto13" placeholder="Otros (€)" oninput="calcularGastosPorMes()">
+                  <input class="neo" type="text" id="gasto14" placeholder="Hija (€)" oninput="calcularGastosPorMes()">
+                  <input class="neo" type="text" id="gasto15" placeholder="Viajes (€)" oninput="calcularGastosPorMes()">
+                  <input class="neo" type="text" id="gasto16" placeholder="Ahorros (€)" oninput="calcularGastosPorMes()">
+                  <input class="neo" type="text" id="gasto17" placeholder="RETA (€)" oninput="calcularGastosPorMes()">
+                  <input class="neo" type="text" id="gasto18" placeholder="Miscelánea (€)" oninput="calcularGastosPorMes()">
+              </div>
+            </div>
+            <div class="result2" id="resultadoGastos"></div>
+          </div>
+          <div class="widget">
+            <h2>Gráfico de Gastos Por Mes</h2>
+            <canvas id="barChart" class="chart"></canvas>
+          </div>
+        </div>
+      </div>
+
+<script>
+  // Inicializar el gráfico de barras
+  var ctx = document.getElementById('barChart').getContext('2d');
+  var barChartData = {
+    labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    datasets: [{
+      label: 'Gastos',
+      backgroundColor: '#ff00a6',
+      data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    }]
+  };
+
+  var barChart = new Chart(ctx, {
+    type: 'bar',
+    data: barChartData,
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  });
+
+  // Función para calcular gastos por mes
+  function calcularGastosPorMes() {
+    var gasto1 = parseFloat(document.getElementById("gasto1").value.replace(",", ".")) || 0;
+    var gasto2 = parseFloat(document.getElementById("gasto2").value.replace(",", ".")) || 0;
+    var gasto3 = parseFloat(document.getElementById("gasto3").value.replace(",", ".")) || 0;
+    var gasto4 = parseFloat(document.getElementById("gasto4").value.replace(",", ".")) || 0;
+    var gasto5 = parseFloat(document.getElementById("gasto5").value.replace(",", ".")) || 0;
+    var gasto6 = parseFloat(document.getElementById("gasto6").value.replace(",", ".")) || 0;
+    var gasto7 = parseFloat(document.getElementById("gasto7").value.replace(",", ".")) || 0;
+    var gasto8 = parseFloat(document.getElementById("gasto8").value.replace(",", ".")) || 0;
+    var gasto9 = parseFloat(document.getElementById("gasto9").value.replace(",", ".")) || 0;
+    var gasto10 = parseFloat(document.getElementById("gasto10").value.replace(",", ".")) || 0;
+    var gasto11 = parseFloat(document.getElementById("gasto11").value.replace(",", ".")) || 0;
+    var gasto12 = parseFloat(document.getElementById("gasto12").value.replace(",", ".")) || 0;
+    var gasto13 = parseFloat(document.getElementById("gasto13").value.replace(",", ".")) || 0;
+    var gasto14 = parseFloat(document.getElementById("gasto14").value.replace(",", ".")) || 0;
+    var gasto15 = parseFloat(document.getElementById("gasto15").value.replace(",", ".")) || 0;
+    var gasto16 = parseFloat(document.getElementById("gasto16").value.replace(",", ".")) || 0;
+    var gasto17 = parseFloat(document.getElementById("gasto17").value.replace(",", ".")) || 0;
+    var gasto18 = parseFloat(document.getElementById("gasto18").value.replace(",", ".")) || 0;
+
+    var totalGastos = gasto1 + gasto2 + gasto3 + gasto4 + gasto5 + gasto6 + gasto7 + gasto8 + gasto9 + gasto10 + gasto11 + gasto12 + gasto13 + gasto14 + gasto15 + gasto16 + gasto17 + gasto18;
+    var formattedTotalGastos = totalGastos.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' });
+
+    document.getElementById("resultadoGastos").innerText = "Total: " + formattedTotalGastos;
+
+    barChartData.datasets[0].data = [gasto1, gasto2, gasto3, gasto4, gasto5, gasto6, gasto7, gasto8, gasto9, gasto10, gasto11, gasto12, gasto13, gasto14, gasto15, gasto16, gasto17, gasto18];
+    barChart.update();
+  }
+</script>
+</body>
+</html>

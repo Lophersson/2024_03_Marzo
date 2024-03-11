@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard de Finanzas</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+  /* Estilos generales */
+  body {
+    background-color: #333;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  header {
+    background-image: url('header.png');
+    background-size: cover;
+    background-position: center;
+    padding: 20px;
+    text-align: center;
+  }
+
+  header h1 {
+    color: #ff00a6;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 72px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo gris oscuro translúcido */
+  }
+
+  .icons {
+    text-align: center; /* Centro los iconos */
+    margin-top: 10px;
+}
+
+.icons a {
+    margin-left: 10px;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    background-color: #ff00a6;
+    color: #fff; /* Color del icono */
+    border-radius: 50%; /* Asegura que los iconos sean circulares */
+    transition: transform 0.3s ease;
+    font-size: 20px; /* Tamaño de la fuente de icono */
+    text-decoration: none; /* Elimina cualquier subrayado */
+}
+
+.icons a {
+    transition: transform 0.3s ease-in-out;
+}
+
+.icons a:hover {
+    transform: scale(2.0);
+    animation: pulse 0.25s infinite;
+    color: #ff00a6; /* Color del icono */
+    background-color: rgb(255, 255, 0);
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(2.0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+  .widget h2 {
+    color: #ff00a6;
+    margin-top: 0;
+    font-weight: bold;
+    font-style: italic;
+  }
+
+  .widget {
+    background-color: #fuchsia;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    /*display: flex;
+    justify-content: center;
+    align-items: center;*/
+}
+
+  .neo {
+    border: none;
+    border-radius: 5px;
+    padding: 12px 12px;
+    font-weight: bold;
+    font-style: italic;
+    text-align: center;
+    font-size: 18px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    background-color: #444444;
+    color:rgb(200, 200, 200);
+    width: 273px;
+    height: auto;
+  }
+
+   .chart {
+    width: 80px;
+    height: 80px;
+    background-color: #444444;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+
+  .container { /*bloque que contiene las dos celdas*/
+    width: 80%;
+    margin: 0 auto;
+    padding-top: 20px;
+  }
+
+  .form-container {
+    margin: 10px; /* Puedes ajustar este valor según tus preferencias */
+}
+
+  .dashboard { /*separación entre las celdas*/
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 30px;
+  }
+
+  .result1,
+  .result2,
+  .result3,
+  .result4 { /* Agregar estilos para los resultados */
+    border: none;
+    padding: 12px 12px;
+    font-weight: bold;
+    font-style: italic;
+    text-align: center;
+    font-size: 36px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    color: #ff00a6;
+    width: 600px;
+    height: auto;
+  }
+</style>
+</head>
+<body>
+    <header>
+        <h1>Dashboard de Finanzas</h1>
+        <div class="icons">
+            <a href="https://web.whatsapp.com/" class="fab fa-whatsapp" target="_blank"></a>
+            <a href="https://www.instagram.com/" class="fab fa-instagram" target="_blank"></a>
+            <a href="https://es.linkedin.com/?src=go-pa&trk=sem-ga_campid.18146679037_asid.140850334975_crid.619061882350_kw.linkedin%20login_d.c_tid.kwd-12704335873_n.g_mt.e_geo.1005479&mcid=6968657504633266178&cid=&gad_source=1&gclid=CjwKCAjw17qvBhBrEiwA1rU9w4SpzINQCma2SE_DICg-M69nZlpjYMHIcJaMSisr9lSZV9tWL1pRQBoCWH4QAvD_BwE&gclsrc=aw.ds" class="fab fa-linkedin" target="_blank"></a>
+            <a href="https://github.com/" class="fab fa-github" target="_blank"></a>
+        </div>              
+      </header>
+
+      <div class="container">
+        <div class="dashboard">
+          <div class="widget">
+            <h2>Activos</h2>
+            <div class="form-container">
+              <input class="neo" type="text" id="valor1" placeholder="Efectivo (€)" oninput="calcular1()">
+              <input class="neo" type="text" id="valor2" placeholder="Monedas (€)" oninput="calcular1()">
+              <input class="neo" type="text" id="valor3" placeholder="Billetes (€)" oninput="calcular1()">
+              <input class="neo" type="text" id="valor4" placeholder="Banco (€)" oninput="calcular1()">
+              <input class="neo" type="text" id="valor5" placeholder="SELAE (€)" oninput="calcular1()">
+              <input class="neo" type="text" id="valor6" placeholder="ONCE (€)" oninput="calcular1()">
+            </div>
+            <div class="result1" id="resultado1"></div> <!-- Agregar contenedor para resultado -->
+          </div>
+          <div class="widget">
+            <h2>Gráfico de Activos</h2>
+            <canvas id="lineChart" class="chart"></canvas>
+          </div>
+        </div>
+      </div>
+
+<div class="container">
+  <div class="dashboard">
+    <div class="widget">
+      <h2>Balance</h2>
+      <div class="form-container">
+        <input class="neo" type="text" id="ingresos" placeholder="Ingresos (€)" oninput="calcular2()">
+        <input class="neo" type="text" id="comerFuera" placeholder="Comer Fuera (€)" oninput="calcular2()">
+        <input class="neo" type="text" id="gasoil" placeholder="Gasoil (€)" oninput="calcular2()">
+        <input class="neo" type="text" id="peajes" placeholder="Peajes y Parkings (€)" oninput="calcular2()">
+      </div>
+      <div class="result2" id="resultado2"></div>
+    </div>
+    <div class="widget">
+      <h2>Gráfico de Gastos</h2>
+      <canvas id="gastosChart" class="chart"></canvas>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="dashboard">
+    <div class="widget">
+      <h2>Gastos Mensuales</h2>
+      <div class="form-container">
+        <!-- Nuevos inputs para los gastos mensuales -->
+        <input class="neo" type="text" id="gasto1" placeholder="Gasto 1 (€)" oninput="calcularGastos()">
+        <input class="neo" type="text" id="gasto2" placeholder="Gasto 2 (€)" oninput="calcularGastos()">
+        <input class="neo" type="text" id="gasto3" placeholder="Gasto 3 (€)" oninput="calcularGastos()">
+        <input class="neo" type="text" id="gasto4" placeholder="Gasto 4 (€)" oninput="calcularGastos()">
+        <input class="neo" type="text" id="gasto5" placeholder="Gasto 5 (€)" oninput="calcularGastos()">
+        <input class="neo" type="text" id="gasto6" placeholder="Gasto 6 (€)" oninput="calcularGastos()">
+      </div>
+      <div class="result3" id="resultado3"></div> <!-- Agregar contenedor para resultado -->
+    </div>
+    <div class="widget">
+      <h2>Gráfico de Gastos Mensuales</h2>
+      <canvas id="gastosMensualesChart" class="chart"></canvas>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+    <div class="dashboard">
+      <div class="widget">
+        <h2>Presupuesto Dispuesto</h2>
+        <div class="form-container">
+          <!-- Nuevos inputs para los datos del gráfico de radar -->
+          <input class="neo" type="text" id="comerFueraPD" placeholder="Comer fuera (€)" oninput="calcularRadar()">
+          <input class="neo" type="text" id="gasoilInput" placeholder="Gasoil (€)" oninput="calcularRadar()">
+          <input class="neo" type="text" id="peajesInput" placeholder="Peajes y parking (€)" oninput="calcularRadar()">
+          <input class="neo" type="text" id="ropa" placeholder="Ropa (€)" oninput="calcularRadar()">
+          <input class="neo" type="text" id="calzado" placeholder="Calzado (€)" oninput="calcularRadar()">
+          <input class="neo" type="text" id="otros" placeholder="Otros (€)" oninput="calcularRadar()">
+        </div>
+        <div class="result4" id="resultado4"></div> <!-- Agregar contenedor para resultado -->
+      </div>
+      <div class="widget">
+        <h2>Gráfico de Radar</h2>
+        <canvas id="radarChart" class="chart"></canvas>
+      </div>
+    </div>
+  </div>
+  
+
+<!-- A PARTIR DE AQUÍ VAN LOS SCRIPTS -->
+<script>
+    var lineChart;
+    
+    // Función para calcular activos y actualizar gráfico
+    function calcular1() {
+        var valor1 = parseFloat(document.getElementById('valor1').value) || 0;
+        var valor2 = parseFloat(document.getElementById('valor2').value) || 0;
+        var valor3 = parseFloat(document.getElementById('valor3').value) || 0;
+        var valor4 = parseFloat(document.getElementById('valor4').value) || 0;
+        var valor5 = parseFloat(document.getElementById('valor5').value) || 0;
+        var valor6 = parseFloat(document.getElementById('valor6').value) || 0;
+        
+        var total = valor1 + valor2 + valor3 + valor4 + valor5 + valor6;
+        document.getElementById('resultado1').textContent = '' + total.toFixed(2) + ' €';
+        
+        if (lineChart) {
+            lineChart.data.datasets[0].data = [valor1, valor2, valor3, valor4, valor5, valor6];
+            lineChart.update();
+        } else {
+            var ctx = document.getElementById('lineChart').getContext('2d');
+            lineChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Efectivo', 'Monedas', 'Billetes', 'Banco', 'SELAE', 'ONCE'],
+                    datasets: [{
+                        label: 'Activos',
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1,
+                        data: [valor1, valor2, valor3, valor4, valor5, valor6],
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        }
+    }
+    
+    var gastosChart;
+    
+    // Función para calcular balance y actualizar gráfico
+    function calcular2() {
+        var ingresos = parseFloat(document.getElementById('ingresos').value) || 0;
+        var comerFuera = parseFloat(document.getElementById('comerFuera').value) || 0;
+        var gasoil = parseFloat(document.getElementById('gasoil').value) || 0;
+        var peajes = parseFloat(document.getElementById('peajes').value) || 0;
+        
+        var totalGastos = comerFuera + gasoil + peajes;
+        var balance = ingresos - totalGastos;
+        document.getElementById('resultado2').textContent = '' + balance.toFixed(2) + ' €';
+        
+        if (gastosChart) {
+            gastosChart.data.datasets[0].data = [comerFuera, gasoil, peajes];
+            gastosChart.update();
+        } else {
+            var ctx = document.getElementById('gastosChart').getContext('2d');
+            gastosChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Comer fuera', 'Gasoil', 'Peajes'],
+                    datasets: [{
+                        label: 'Gastos',
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)'
+                        ],
+                        borderWidth: 1,
+                        data: [comerFuera, gasoil, peajes],
+                    }]
+                }
+            });
+        }
+    }
+    
+    var gastosMensualesChart;
+    
+    // Función para calcular gastos mensuales y actualizar gráfico
+    function calcularGastos() {
+        var gasto1 = parseFloat(document.getElementById('gasto1').value) || 0;
+        var gasto2 = parseFloat(document.getElementById('gasto2').value) || 0;
+        var gasto3 = parseFloat(document.getElementById('gasto3').value) || 0;
+        var gasto4 = parseFloat(document.getElementById('gasto4').value) || 0;
+        var gasto5 = parseFloat(document.getElementById('gasto5').value) || 0;
+        var gasto6 = parseFloat(document.getElementById('gasto6').value) || 0;
+        
+        var totalGastos = gasto1 + gasto2 + gasto3 + gasto4 + gasto5 + gasto6;
+        document.getElementById('resultado3').textContent = '' + totalGastos.toFixed(2) + ' €';
+        
+        if (gastosMensualesChart) {
+            gastosMensualesChart.data.datasets[0].data = [gasto1, gasto2, gasto3, gasto4, gasto5, gasto6];
+            gastosMensualesChart.update();
+        } else {
+            var ctx = document.getElementById('gastosMensualesChart').getContext('2d');
+            gastosMensualesChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Gasto 1', 'Gasto 2', 'Gasto 3', 'Gasto 4', 'Gasto 5', 'Gasto 6'],
+                    datasets: [{
+                        label: 'Gastos Mensuales',
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1,
+                        data: [gasto1, gasto2, gasto3, gasto4, gasto5, gasto6],
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        }
+    }
+    
+    // Declara la variable radarChart fuera de la función para que tenga alcance global
+    var radarChart;
+
+// Función para calcular Presupuesto Dispuesto y actualizar gráfico de radar
+function calcularRadar() {
+    var comerFuera = parseFloat(document.getElementById('comerFueraPD').value) || 0;
+    var gasoil = parseFloat(document.getElementById('gasoilInput').value) || 0;
+    var peajes = parseFloat(document.getElementById('peajesInput').value) || 0;
+    var ropa = parseFloat(document.getElementById('ropa').value) || 0;
+    var calzado = parseFloat(document.getElementById('calzado').value) || 0;
+    var otros = parseFloat(document.getElementById('otros').value) || 0;
+
+    var totalGastos = comerFuera + gasoil + peajes + ropa + calzado + otros;
+    document.getElementById('resultado4').textContent = totalGastos.toFixed(2) + ' €';
+    
+    if (!radarChart) {
+        var ctx = document.getElementById('radarChart').getContext('2d');
+        radarChart = new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: ['Comer fuera', 'Gasoil', 'Peajes', 'Ropa', 'Calzado', 'Otros'],
+                datasets: [{
+                    label: 'Presupuesto Dispuesto',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1,
+                    data: [comerFuera, gasoil, peajes, ropa, calzado, otros],
+                }]
+            },
+            options: {
+                scale: {
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    } else {
+        radarChart.data.datasets[0].data = [comerFuera, gasoil, peajes, ropa, calzado, otros];
+        radarChart.update();
+    }
+}
+
+</script>
+</body>
+</html>

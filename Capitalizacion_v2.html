@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Capitalizacion</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+/* Estilos generales */
+body {
+  background-color: #333;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-image: url('header.png');
+  background-size: cover;
+  background-position: center;
+  padding: 20px;
+  text-align: center;
+}
+
+header h1 {
+  color: #ff00a6;
+  margin: 6px 0;
+  font-weight: bold;
+  font-style: italic;
+  font-size: 72px;
+  padding: 6px;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo gris oscuro translúcido */
+}
+
+.icons {
+  text-align: center; /* Centro los iconos */
+  margin-top: 10px;
+}
+
+.icons a {
+  margin-left: 10px;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  background-color: #ff00a6;
+  color: #fff; /* Color del icono */
+  border-radius: 50%; /* Asegura que los iconos sean circulares */
+  transition: transform 0.3s ease;
+  font-size: 20px; /* Tamaño de la fuente de icono */
+  text-decoration: none; /* Elimina cualquier subrayado */
+}
+
+.icons a:hover {
+  transform: scale(2.0);
+  animation: pulse 0.25s infinite;
+  color: #ff00a6; /* Color del icono */
+  background-color: rgb(255, 255, 0);
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(2.0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.widget h2 {
+  color: #ff00a6;
+  margin-top: 0;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.widget {
+  background-color: #fuchsia;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.neo {
+  border: none;
+  border-radius: 5px;
+  padding: 12px;
+  font-weight: bold;
+  font-style: italic;
+  text-align: center;
+  font-size: 18px;
+  margin: 3px;
+  background-color: #444444;
+  color: rgb(200, 200, 200);
+  width: 273px;
+}
+
+.chart {
+  width: 80px;
+  height: 80px;
+  background-color: #444444;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.container {
+  width: 80%;
+  margin: 0 auto;
+  padding-top: 20px;
+}
+
+.form-container {
+  margin: 10px;
+}
+
+.dashboard {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 30px;
+}
+
+.resultFinal {
+  border: none;
+  padding: 12px;
+  font-weight: bold;
+  font-style: italic;
+  text-align: center;
+  font-size: 36px;
+  margin: 3px;
+  color: #ff00a6;
+  width: 600px;
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>Capitalización a varios años</h1>
+  <div class="icons">
+    <a href="https://web.whatsapp.com/" class="fab fa-whatsapp" target="_blank"></a>
+    <a href="https://www.instagram.com/" class="fab fa-instagram" target="_blank"></a>
+    <a href="https://es.linkedin.com/?src=go-pa&trk=sem-ga_campid.18146679037_asid.140850334975_crid.619061882350_kw.linkedin%20login_d.c_tid.kwd-12704335873_n.g_mt.e_geo.1005479&mcid=6968657504633266178&cid=&gad_source=1&gclid=CjwKCAjw17qvBhBrEiwA1rU9w4SpzINQCma2SE_DICg-M69nZlpjYMHIcJaMSisr9lSZV9tWL1pRQBoCWH4QAvD_BwE&gclsrc=aw.ds" class="fab fa-linkedin" target="_blank"></a>
+    <a href="https://github.com/" class="fab fa-github" target="_blank"></a>
+  </div>
+</header>
+
+<div class="container">
+  <div class="dashboard">
+    <div class="widget">
+      <h2>Capitalización anual</h2>
+      <div class="form-container">
+        <input class="neo" type="number" id="valor1" placeholder="Años" oninput="calcular1()">
+        <input class="neo" type="number" id="valor2" placeholder="Sueldo mensual (€)" oninput="calcular1()">
+        <input class="neo" type="number" id="valor3" placeholder="Incremento anual (%)" oninput="calcular1()">
+      </div>
+    </div>
+    <div class="widget">
+      <h2>Cantidad total</h2>
+      <div class="resultFinal" id="resultadoFinal"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function calcular1() {
+    var años = parseFloat(document.getElementById("valor1").value);
+    var sueldoMensual = parseFloat(document.getElementById("valor2").value);
+    var incrementoAnual = parseFloat(document.getElementById("valor3").value);
+
+    // Verificar si todos los campos están llenos
+    if (isNaN(años) || isNaN(sueldoMensual) || isNaN(incrementoAnual)) {
+      // Si no están todos los campos llenos, no mostrar ningún resultado
+      document.getElementById("resultadoFinal").textContent = "";
+      return; // Salir de la función
+    }
+
+    // Convertir el incremento anual de porcentaje a decimal
+    incrementoAnual = incrementoAnual / 100;
+
+    // Calcular el sueldo anual considerando 14 pagas al año
+    var sueldoAnual = sueldoMensual * 14;
+
+    var cantidadTotal = 0;
+    var sueldoActual = sueldoAnual;
+
+    // Calcular el total acumulado de los pagos anuales con aumento porcentual
+    for (var i = 0; i < años; i++) {
+      cantidadTotal += sueldoActual;
+      sueldoActual *= (1 + incrementoAnual); // Aumentar el sueldo actual por el incremento anual
+    }
+
+    document.getElementById("resultadoFinal").textContent = "" + años + "" + cantidadTotal.toFixed(2) + " €";
+  }
+</script>
+
+</body>
+</html>

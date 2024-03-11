@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<!-- saved from url=(0076)https://programacionymas.com/blog/tipos-de-testing-en-desarrollo-de-software -->
+<html lang="es" class=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>Los diferentes tipos de Pruebas de software</title>
+    <link rel="canonical" href="https://programacionymas.com/blog/tipos-de-testing-en-desarrollo-de-software">
+    <meta name="description" content="Hoy aprenderemos sobre los tipos de testing que existen en el desarrollo de software: como pruebas unitarias, de integración, de regresión, funcionales, de aceptación, de humo, de rendimiento, etc.">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <meta name="csrf-token" content="PzOTHNrK6YKrarideboQVRIlaOrqDJuq2WZ17jCh">
+
+    <meta property="og:url" content="https://programacionymas.com/blog/tipos-de-testing-en-desarrollo-de-software">
+    <meta property="og:type" content="article">
+    <meta property="article:publisher" content="https://www.facebook.com/programacionymas">
+    <meta property="og:title" content="Los diferentes tipos de Pruebas de software">
+    <meta property="og:description" content="Hoy aprenderemos sobre los tipos de testing que existen en el desarrollo de software: como pruebas unitarias, de integración, de regresión, funcionales, de aceptación, de humo, de rendimiento, etc.">
+    <meta property="og:image" content="https://res.cloudinary.com/pym/image/upload/f_auto/v1/articles/2019/testing/tipos-prueba-software.png">
+
+    <meta name="author" content="Juan Ramos">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="twitter:site" content="@programacionym">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Los diferentes tipos de Pruebas de software">
+    <meta name="twitter:description" content="Hoy aprenderemos sobre los tipos de testing que existen en el desarrollo de software: como pruebas unitarias, de integración, de regresión, funcionales, de aceptación, de humo, de rendimiento, etc.">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://programacionymas.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://programacionymas.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="https://programacionymas.com/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://programacionymas.com/favicon-16x16.png">
+    <link rel="manifest" href="https://programacionymas.com/site.webmanifest">
+    <link rel="mask-icon" href="https://programacionymas.com/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#00aba9">
+    <meta name="theme-color" content="#5c5b60">
+
+    <link rel="stylesheet" href="./QATesting_files/all.min.css" as="style" onload="this.onload=null;this.rel=&#39;stylesheet&#39;">
+<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"></noscript>
+    <link href="./QATesting_files/app.css" rel="stylesheet">
+
+            <link rel="stylesheet" href="./QATesting_files/modal-exit.css" as="style" onload="this.onload=null;this.rel=&#39;stylesheet&#39;">
+<noscript><link rel="stylesheet" href="https://programacionymas.com/src/css/layout/modal-exit.css"></noscript>    
+    <script>
+    !function(t){"use strict";t.loadCSS||(t.loadCSS=function(){});var e=loadCSS.relpreload={};if(e.support=function(){var e;try{e=t.document.createElement("link").relList.supports("preload")}catch(t){e=!1}return function(){return e}}(),e.bindMediaToggle=function(t){var e=t.media||"all";function a(){t.media=e}t.addEventListener?t.addEventListener("load",a):t.attachEvent&&t.attachEvent("onload",a),setTimeout(function(){t.rel="stylesheet",t.media="only x"}),setTimeout(a,3e3)},e.poly=function(){if(!e.support())for(var a=t.document.getElementsByTagName("link"),n=0;n<a.length;n++){var o=a[n];"preload"!==o.rel||"style"!==o.getAttribute("as")||o.getAttribute("data-loadcss")||(o.setAttribute("data-loadcss",!0),e.bindMediaToggle(o))}},!e.support()){e.poly();var a=t.setInterval(e.poly,500);t.addEventListener?t.addEventListener("load",function(){e.poly(),t.clearInterval(a)}):t.attachEvent&&t.attachEvent("onload",function(){e.poly(),t.clearInterval(a)})}"undefined"!=typeof exports?exports.loadCSS=loadCSS:t.loadCSS=loadCSS}("undefined"!=typeof global?global:this);
+</script>
+        <link rel="stylesheet" href="./QATesting_files/show.css">
+    
+    <script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "Organization",
+    "name" : "Programación y más",
+    "url" : "https://programacionymas.com",
+    "sameAs" : [
+        "https://facebook.com/programacionymas",
+        "https://twitter.com/programacionym"
+    ]
+}
+</script><style type="text/css">#bio_ep_bg {display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #000; opacity: 0.3; z-index: 10001;}#bio_ep {display: none; position: fixed; font-family: 'Titillium Web', sans-serif; font-size: 16px; left: 50%; top: 50%; transform: translateX(-50%) translateY(-50%); -webkit-transform: translateX(-50%) translateY(-50%); -ms-transform: translateX(-50%) translateY(-50%); background-color: #fff; box-shadow: 0px 1px 4px 0 rgba(0,0,0,0.5); z-index: 10002;}#bio_ep_close {position: absolute; left: 100%; margin: -8px 0 0 -12px; width: 20px; height: 20px; color: #fff; font-size: 12px; font-weight: bold; text-align: center; border-radius: 50%; background-color: #5c5c5c; cursor: pointer;}</style><script src="./QATesting_files/client" defer=""></script><link id="googleidentityservice" type="text/css" media="all" rel="stylesheet" href="./QATesting_files/style"><style id="googleidentityservice_button_styles">.qJTHM{-webkit-user-select:none;color:#202124;direction:ltr;-webkit-touch-callout:none;font-family:"Roboto-Regular",arial,sans-serif;-webkit-font-smoothing:antialiased;font-weight:400;margin:0;overflow:hidden;-webkit-text-size-adjust:100%}.ynRLnc{left:-9999px;position:absolute;top:-9999px}.L6cTce{display:none}.bltWBb{word-break:break-all}.hSRGPd{color:#1a73e8;cursor:pointer;font-weight:500;text-decoration:none}.Bz112c-W3lGp{height:16px;width:16px}.Bz112c-E3DyYd{height:20px;width:20px}.Bz112c-r9oPif{height:24px;width:24px}.Bz112c-uaxL4e{-webkit-border-radius:10px;border-radius:10px}.LgbsSe-Bz112c{display:block}.S9gUrf-YoZ4jf,.S9gUrf-YoZ4jf *{border:none;margin:0;padding:0}.fFW7wc-ibnC6b>.aZ2wEe>div{border-color:#4285f4}.P1ekSe-ZMv3u>div:nth-child(1){background-color:#1a73e8!important}.P1ekSe-ZMv3u>div:nth-child(2),.P1ekSe-ZMv3u>div:nth-child(3){background-image:linear-gradient(to right,rgba(255,255,255,.7),rgba(255,255,255,.7)),linear-gradient(to right,#1a73e8,#1a73e8)!important}.haAclf{display:inline-block}.nsm7Bb-HzV7m-LgbsSe{-webkit-border-radius:4px;border-radius:4px;-webkit-box-sizing:border-box;box-sizing:border-box;-webkit-transition:background-color .218s,border-color .218s;transition:background-color .218s,border-color .218s;-webkit-user-select:none;-webkit-appearance:none;background-color:#fff;background-image:none;border:1px solid #dadce0;color:#3c4043;cursor:pointer;font-family:"Google Sans",arial,sans-serif;font-size:14px;height:40px;letter-spacing:0.25px;outline:none;overflow:hidden;padding:0 12px;position:relative;text-align:center;vertical-align:middle;white-space:nowrap;width:auto}@media screen and (-ms-high-contrast:active){.nsm7Bb-HzV7m-LgbsSe{border:2px solid windowText;color:windowText}}.nsm7Bb-HzV7m-LgbsSe.pSzOP-SxQuSe{font-size:14px;height:32px;letter-spacing:0.25px;padding:0 10px}.nsm7Bb-HzV7m-LgbsSe.purZT-SxQuSe{font-size:11px;height:20px;letter-spacing:0.3px;padding:0 8px}.nsm7Bb-HzV7m-LgbsSe.Bz112c-LgbsSe{padding:0;width:40px}.nsm7Bb-HzV7m-LgbsSe.Bz112c-LgbsSe.pSzOP-SxQuSe{width:32px}.nsm7Bb-HzV7m-LgbsSe.Bz112c-LgbsSe.purZT-SxQuSe{width:20px}.nsm7Bb-HzV7m-LgbsSe.JGcpL-RbRzK{-webkit-border-radius:20px;border-radius:20px}.nsm7Bb-HzV7m-LgbsSe.JGcpL-RbRzK.pSzOP-SxQuSe{-webkit-border-radius:16px;border-radius:16px}.nsm7Bb-HzV7m-LgbsSe.JGcpL-RbRzK.purZT-SxQuSe{-webkit-border-radius:10px;border-radius:10px}.nsm7Bb-HzV7m-LgbsSe.MFS4be-Ia7Qfc{border:none;color:#fff}.nsm7Bb-HzV7m-LgbsSe.MFS4be-v3pZbf-Ia7Qfc{background-color:#1a73e8}.nsm7Bb-HzV7m-LgbsSe.MFS4be-JaPV2b-Ia7Qfc{background-color:#202124;color:#e8eaed}.nsm7Bb-HzV7m-LgbsSe .nsm7Bb-HzV7m-LgbsSe-Bz112c{height:18px;margin-right:8px;min-width:18px;width:18px}.nsm7Bb-HzV7m-LgbsSe.pSzOP-SxQuSe .nsm7Bb-HzV7m-LgbsSe-Bz112c{height:14px;min-width:14px;width:14px}.nsm7Bb-HzV7m-LgbsSe.purZT-SxQuSe .nsm7Bb-HzV7m-LgbsSe-Bz112c{height:10px;min-width:10px;width:10px}.nsm7Bb-HzV7m-LgbsSe.jVeSEe .nsm7Bb-HzV7m-LgbsSe-Bz112c{margin-left:8px;margin-right:-4px}.nsm7Bb-HzV7m-LgbsSe.Bz112c-LgbsSe .nsm7Bb-HzV7m-LgbsSe-Bz112c{margin:0;padding:10px}.nsm7Bb-HzV7m-LgbsSe.Bz112c-LgbsSe.pSzOP-SxQuSe .nsm7Bb-HzV7m-LgbsSe-Bz112c{padding:8px}.nsm7Bb-HzV7m-LgbsSe.Bz112c-LgbsSe.purZT-SxQuSe .nsm7Bb-HzV7m-LgbsSe-Bz112c{padding:4px}.nsm7Bb-HzV7m-LgbsSe .nsm7Bb-HzV7m-LgbsSe-Bz112c-haAclf{-webkit-border-top-left-radius:3px;border-top-left-radius:3px;-webkit-border-bottom-left-radius:3px;border-bottom-left-radius:3px;display:-webkit-box;display:-webkit-flex;display:flex;justify-content:center;-webkit-align-items:center;align-items:center;background-color:#fff;height:36px;margin-left:-10px;margin-right:12px;min-width:36px;width:36px}.nsm7Bb-HzV7m-LgbsSe .nsm7Bb-HzV7m-LgbsSe-Bz112c-haAclf .nsm7Bb-HzV7m-LgbsSe-Bz112c,.nsm7Bb-HzV7m-LgbsSe.Bz112c-LgbsSe .nsm7Bb-HzV7m-LgbsSe-Bz112c-haAclf .nsm7Bb-HzV7m-LgbsSe-Bz112c{margin:0;padding:0}.nsm7Bb-HzV7m-LgbsSe.pSzOP-SxQuSe .nsm7Bb-HzV7m-LgbsSe-Bz112c-haAclf{height:28px;margin-left:-8px;margin-right:10px;min-width:28px;width:28px}.nsm7Bb-HzV7m-LgbsSe.purZT-SxQuSe .nsm7Bb-HzV7m-LgbsSe-Bz112c-haAclf{height:16px;margin-left:-6px;margin-right:8px;min-width:16px;width:16px}.nsm7Bb-HzV7m-LgbsSe.Bz112c-LgbsSe .nsm7Bb-HzV7m-LgbsSe-Bz112c-haAclf{-webkit-border-radius:3px;border-radius:3px;margin-left:2px;margin-right:0;padding:0}.nsm7Bb-HzV7m-LgbsSe.JGcpL-RbRzK .nsm7Bb-HzV7m-LgbsSe-Bz112c-haAclf{-webkit-border-radius:18px;border-radius:18px}.nsm7Bb-HzV7m-LgbsSe.pSzOP-SxQuSe.JGcpL-RbRzK .nsm7Bb-HzV7m-LgbsSe-Bz112c-haAclf{-webkit-border-radius:14px;border-radius:14px}.nsm7Bb-HzV7m-LgbsSe.purZT-SxQuSe.JGcpL-RbRzK .nsm7Bb-HzV7m-LgbsSe-Bz112c-haAclf{-webkit-border-radius:8px;border-radius:8px}.nsm7Bb-HzV7m-LgbsSe .nsm7Bb-HzV7m-LgbsSe-bN97Pc-sM5MNb{display:-webkit-box;display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;-webkit-flex-direction:row;flex-direction:row;justify-content:space-between;-webkit-flex-wrap:nowrap;flex-wrap:nowrap;height:100%;position:relative;width:100%}.nsm7Bb-HzV7m-LgbsSe .oXtfBe-l4eHX{justify-content:center}.nsm7Bb-HzV7m-LgbsSe .nsm7Bb-HzV7m-LgbsSe-BPrWId{-webkit-flex-grow:1;flex-grow:1;font-family:"Google Sans",arial,sans-serif;font-weight:500;overflow:hidden;text-overflow:ellipsis;vertical-align:top}.nsm7Bb-HzV7m-LgbsSe.purZT-SxQuSe .nsm7Bb-HzV7m-LgbsSe-BPrWId{font-weight:300}.nsm7Bb-HzV7m-LgbsSe .oXtfBe-l4eHX .nsm7Bb-HzV7m-LgbsSe-BPrWId{-webkit-flex-grow:0;flex-grow:0}.nsm7Bb-HzV7m-LgbsSe .nsm7Bb-HzV7m-LgbsSe-MJoBVe{-webkit-transition:background-color .218s;transition:background-color .218s;bottom:0;left:0;position:absolute;right:0;top:0}.nsm7Bb-HzV7m-LgbsSe:hover,.nsm7Bb-HzV7m-LgbsSe:focus{-webkit-box-shadow:none;box-shadow:none;border-color:#d2e3fc;outline:none}.nsm7Bb-HzV7m-LgbsSe:hover .nsm7Bb-HzV7m-LgbsSe-MJoBVe,.nsm7Bb-HzV7m-LgbsSe:focus .nsm7Bb-HzV7m-LgbsSe-MJoBVe{background:rgba(66,133,244,.04)}.nsm7Bb-HzV7m-LgbsSe:active .nsm7Bb-HzV7m-LgbsSe-MJoBVe{background:rgba(66,133,244,.1)}.nsm7Bb-HzV7m-LgbsSe.MFS4be-Ia7Qfc:hover .nsm7Bb-HzV7m-LgbsSe-MJoBVe,.nsm7Bb-HzV7m-LgbsSe.MFS4be-Ia7Qfc:focus .nsm7Bb-HzV7m-LgbsSe-MJoBVe{background:rgba(255,255,255,.24)}.nsm7Bb-HzV7m-LgbsSe.MFS4be-Ia7Qfc:active .nsm7Bb-HzV7m-LgbsSe-MJoBVe{background:rgba(255,255,255,.32)}.nsm7Bb-HzV7m-LgbsSe .n1UuX-DkfjY{-webkit-border-radius:50%;border-radius:50%;display:-webkit-box;display:-webkit-flex;display:flex;height:20px;margin-left:-4px;margin-right:8px;min-width:20px;width:20px}.nsm7Bb-HzV7m-LgbsSe.jVeSEe .nsm7Bb-HzV7m-LgbsSe-BPrWId{font-family:"Roboto";font-size:12px;text-align:left}.nsm7Bb-HzV7m-LgbsSe.jVeSEe .nsm7Bb-HzV7m-LgbsSe-BPrWId .ssJRIf,.nsm7Bb-HzV7m-LgbsSe.jVeSEe .nsm7Bb-HzV7m-LgbsSe-BPrWId .K4efff .fmcmS{overflow:hidden;text-overflow:ellipsis}.nsm7Bb-HzV7m-LgbsSe.jVeSEe .nsm7Bb-HzV7m-LgbsSe-BPrWId .K4efff{display:-webkit-box;display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;color:#5f6368;fill:#5f6368;font-size:11px;font-weight:400}.nsm7Bb-HzV7m-LgbsSe.jVeSEe.MFS4be-Ia7Qfc .nsm7Bb-HzV7m-LgbsSe-BPrWId .K4efff{color:#e8eaed;fill:#e8eaed}.nsm7Bb-HzV7m-LgbsSe.jVeSEe .nsm7Bb-HzV7m-LgbsSe-BPrWId .K4efff .Bz112c{height:18px;margin:-3px -3px -3px 2px;min-width:18px;width:18px}.nsm7Bb-HzV7m-LgbsSe.jVeSEe .nsm7Bb-HzV7m-LgbsSe-Bz112c-haAclf{-webkit-border-top-left-radius:0;border-top-left-radius:0;-webkit-border-bottom-left-radius:0;border-bottom-left-radius:0;-webkit-border-top-right-radius:3px;border-top-right-radius:3px;-webkit-border-bottom-right-radius:3px;border-bottom-right-radius:3px;margin-left:12px;margin-right:-10px}.nsm7Bb-HzV7m-LgbsSe.jVeSEe.JGcpL-RbRzK .nsm7Bb-HzV7m-LgbsSe-Bz112c-haAclf{-webkit-border-radius:18px;border-radius:18px}.L5Fo6c-sM5MNb{border:0;display:block;left:0;position:relative;top:0}.L5Fo6c-bF1uUb{-webkit-border-radius:4px;border-radius:4px;bottom:0;cursor:pointer;left:0;position:absolute;right:0;top:0}.L5Fo6c-bF1uUb:focus{border:none;outline:none}sentinel{}</style></head>
+
+<body class="" style="">
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark elegant-color">
+    <a class="p-0 mr-3" href="https://programacionymas.com/">
+        <img src="./QATesting_files/pym_white_svg" title="Programación y más" alt="Logo de Programación y más" height="24" width="61">
+    </a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+       <span class="fas fa-bars"></span>
+    </button>
+
+    <div class="collapse navbar-collapse text-center" id="navbarSupportedContent">
+       <ul class="navbar-nav mr-auto">
+           <li class="nav-item mr-0 mr-sm-1">
+               <a class="nav-link waves-effect waves-light" href="https://programacionymas.com/series">
+                   <i class="fas fa-play-circle mr-1"></i>
+                   Cursos
+               </a>
+           </li>
+           <li class="nav-item mr-0 mr-sm-1">
+               <a class="nav-link waves-effect waves-light" href="https://programacionymas.com/blog">
+                   <i class="fas fa-book mr-1"></i>
+                   Blog
+               </a>
+           </li>
+           <li class="nav-item mr-0 mr-sm-1">
+               <a class="nav-link waves-effect waves-light" href="https://programacionymas.com/planes">
+                   <i class="fas fa-rocket mr-1"></i>
+                   Planes
+               </a>
+           </li>
+           <li class="nav-item mr-0 mr-sm-1">
+               <a class="nav-link waves-effect waves-light" href="https://programacionymas.com/portafolio">
+                   <i class="fas fa-shopping-cart mr-1"></i>
+                   Tienda
+               </a>
+           </li>
+           
+       </ul>
+       <ul class="navbar-nav ml-auto">
+                          <li class="nav-item">
+                   <a class="nav-link waves-effect waves-light" data-toggle="modal" data-target="#modalLRForm" href="https://programacionymas.com/login">
+                       <i class="fas fa-sign-in-alt"></i>
+                       Ingresar
+                   </a>
+               </li>
+                       </ul>
+        </div>
+</nav>
+            
+        
+        
+        
+    </header>
+
+
+    <ol class="breadcrumb elegant-color-dark mb-0 mb-sm-3 mb-md-4">
+        <li class="breadcrumb-item"><a href="https://programacionymas.com/">Inicio</a></li>
+        <li class="breadcrumb-item"><a href="https://programacionymas.com/blog">Blog</a></li>
+        <li class="breadcrumb-item active"><a href="https://programacionymas.com/categorias/buenas-practicas">Buenas prácticas</a></li>
+    </ol>
+<div class="container-fluid">
+        <div class="row">
+        <div class="col-md-9 section-blog-fw">
+            <div class="excerpt pt-3 pb-3">
+                <h1 class="h1-responsive mb-2">Los diferentes tipos de testing en el desarrollo de software</h1>
+                <p>En este artículo vamos a ver qué tipos de testing existen con relación al desarrollo de software.</p>
+<p>Vamos a aprender en qué consisten y en qué se diferencian tales tipos, como por ejemplo: unit testing, integration testing, functional testing, acceptance testing, y muchos más.</p>
+<p>Existen muchos tipos de testing, o <strong>pruebas de software</strong>, que podemos usar para confirmar que nuestro software continúa funcionando correctamente tras introducir cambios nuevos sobre nuestro código fuente. </p>
+<p>No todas las pruebas son iguales. Es por ello que en este artículo vamos a ver cómo difieren las principales pruebas de software.</p>
+<h2>Introducción</h2>
+<p>Muchas veces, cuando trabajamos de manera independiente en proyectos pequeños, no tenemos la necesidad de (o el cliente no cuenta con el presupuesto para) escribir pruebas automatizadas. </p>
+<p>Sin embargo, al empezar a trabajar en proyectos más grandes e integrarnos a equipos de trabajo más amplios, notamos que muchas veces se habla de distintos tipos de tests. </p>
+<p>Aunque suene increíble, muchas veces como desarrolladores tendemos a desarrollar nuevas características y no conocemos muy bien lo que hace el equipo de QA, y no preguntamos, ya sea por falta de tiempo o porque no queremos admitir lo poco que sabemos del tema. </p>
+<p>Y así el tiempo avanza y no aprendemos las diferencias entre los tipos de testing que existen. Pero esto se acaba hoy.</p>
+<p>Aunque no vamos a escribir ni realizar pruebas en este artículo, sí que vamos revisar qué tipos existen y qué busca lograrse con estas pruebas: para conocer mejor sus diferencias, y no sentirnos perdidos cuando estos conceptos sean usados en una conversación.</p>
+<p>Las personas pueden tener definiciones que difieren un poco entre sí, pero la idea general es la misma.</p>
+<p>También hay que tener en cuenta que a veces los equipos se organizan para ejecutar conjuntos de pruebas.
+A estos grupos de pruebas se les conoce como "test suites" e incluyen pruebas de los distintos tipos. </p>
+<p>Por ejemplo, es posible ejecutar un "test suite" que englobe <em>integration tests</em> y <em>regression tests</em>. </p>
+<p>También ten en cuenta que en algunos casos los equipos deciden "armar su propio vocabulario" y asignan nombres a sus <em>grupos de tests</em>. </p>
+<p>Pero bien. Volviendo al tema, debemos hacer testing a un nivel prudente, según:</p>
+<ul>
+<li>la complejidad de nuestra aplicación,</li>
+<li>la cantidad de tráfico que nuestra aplicación recibe, y</li>
+<li>el tamaño de nuestro equipo.</li>
+</ul>
+<h2>Manual vs Automated testing</h2>
+<p>De manera general, lo primero que debemos tener en cuenta es que existen pruebas de software manuales y pruebas de software automatizadas. </p>
+<p><strong>Las pruebas manuales</strong> son llevadas a cabo por personas, quienes navegan e interactúan con el software (usando herramientas adecuadas para cada caso). </p>
+<p>Estas pruebas resultan costosas, ya que se requiere contar con un profesional encargado de esta labor; para configurar un entorno y así mismo ejecutar las pruebas.</p>
+<p>Como es de esperarse, estas pruebas están expuestas a errores humanos: por ejemplo, se pueden cometer errores tipográficos u omitir pasos durante la prueba.</p>
+<p><strong>Las pruebas automatizadas</strong>, por el contrario, son realizadas por máquinas, que ejecutan un "test script" que ya ha sido escrito previamente. </p>
+<p>Estos tests (o pruebas) pueden variar mucho en cuanto a complejidad: </p>
+<ul>
+<li>desde verificar que el método de una clase específica funcione correctamente, </li>
+<li>hasta asegurar que una secuencia de acciones complejas en la UI se lleven acabo correctamente y devuelvan los resultados esperados. </li>
+</ul>
+<p>Estas pruebas son más rápidas y confiables que las que se llevan a cabo manualmente – pero la calidad de estas pruebas automatizadas depende de qué tan bien escritos se encuentren los "tests scripts" (código que determina qué es lo que se hará en la prueba).</p>
+<p><em>Automated testing</em> es un componente clave para <em>continuous integration</em> y <em>continuous delivery</em>, y es una excelente manera de escalar tus procesos de QA (quality assurance, aseguramiento de calidad) a medida que agregas nuevas características a tu aplicación. </p>
+<p>Aún así, son importantes las pruebas manuales para lo que se conoce como "exploratory testing" (lo veremos más adelante en el artículo).</p>
+<h2>Los diferentes tipos de tests</h2>
+<p>Veamos los diferentes tipos de prueba que existen (hay más, pero éstas son las más importantes).</p>
+<h3>Unit tests</h3>
+<p>Las <strong>pruebas unitarias</strong> son a bajo nivel (cercanas al código fuente de nuestra aplicación). </p>
+<p>Este tipo de testing consiste en probar de forma individual las funciones y/o métodos (de las clases, componentes y/o módulos que son usados por nuestro software). </p>
+<p>Debido a lo específicas que son, generalmente son las pruebas automatizadas de menor coste, y pueden ejecutarse rápidamente por un servidor de <em>continuous integration</em> (integración continua).</p>
+<p>Más detalles acerca de las pruebas unitarias:</p>
+<ul>
+<li>
+<p>Idealmente, cuando planeamos y escribimos pruebas unitarias, debemos aislar la funcionalidad hasta un punto en que no se pueda desglosar más, y entonces escribir pruebas a partir de ello. Justamente, el nombre de este tipo de testing hace referencia a una "unidad de código", que es independiente del resto.</p>
+</li>
+<li>
+<p>Estas pruebas verifican que el nombre de la función o método sea adecuado, que los nombres y tipos de los parámetros sean correctos, y así mismo el tipo y valor de lo que se devuelve como resultado.</p>
+</li>
+<li>
+<p>Dado que las pruebas unitarias no deben tener ningún tipo de dependencia, se suele reemplazar los llamados a APIs y servicios externos por funcionalidad que los imite (para que no exista interacción que vaya más allá de la unidad que está siendo probanda).</p>
+<p>En muchos casos inclusive se suele reemplazar las consultas a bases de datos, de modo que la prueba se enfoque en operar a partir de los valores de entrada, sin depender de ninguna fuente externa. </p>
+</li>
+<li>
+<p>Si no es factible aislar el uso de bases de datos de nuestras pruebas unitarias, será importante tener en cuenta el rendimiento y buscar optimizar nuestras consultas.</p>
+<p>Esto es importante, porque si nuestras pruebas unitarias son de larga duración, resultará incómodo ejecutarlas y ralentizará significativamente los tiempos de desarrollo.</p>
+</li>
+</ul>
+<p>Cuando se habla de <strong>Test Driven Development</strong> (desarrollo guiado por pruebas), se hace referencia a unit tests. Es decir, se usan pruebas de este tipo como <em>especificaciones de lo que nuestro código debe hacer</em>.</p>
+<h3>Integration tests</h3>
+<p>Las <strong>pruebas de integración</strong> verifican que los diferentes módulos y/o servicios usados por nuestra aplicación funcionen en armonía cuando trabajan en conjunto.</p>
+<p>Por ejemplo, </p>
+<ul>
+<li>pueden probar la interacción con una o múltples bases de datos, </li>
+<li>o asegurar que los microservicios operen como se espera. </li>
+</ul>
+<p>Las pruebas de integración son típicamente el paso siguiente a las pruebas unitarias.</p>
+<p>Y son generalmente más costosas de ejecutar, ya que requieren que más partes de nuestra aplicación se configuren y se encuentren en funcionamiento.</p>
+<h3>Functional tests</h3>
+<p>Las <strong>pruebas funcionales</strong> se centran en los <em>requerimientos de negocio</em> de una aplicación. </p>
+<p>Estas pruebas verifican la salida (resultado) de una acción, sin prestar atención a los estados intermedios del sistema mientras se lleva a cabo la ejecución.</p>
+<p>A veces existe cierta confusión entre "integration tests" y "functional tests", ya que ambos requieren que múltiples componentes interactúen entre sí.</p>
+<p>La diferencia es que,</p>
+<ul>
+<li>una prueba de integración puede simplemente verificar que las consultas a una base de datos se ejecuten correctamente,</li>
+<li>mientras que una prueba funcional esperaría mostrar un valor específico a un usuario, en concordancia a lo definido por los requerimientos del producto.</li>
+</ul>
+<h3>End-to-end tests</h3>
+<p>Las <strong>pruebas de punta a punta</strong> replican el comportamiento de los usuarios con el software, en un entorno de aplicación completo. </p>
+<p>Estas pruebas verifican que los flujos que sigue un usuario trabajen como se espera, y pueden ser tan simples como</p>
+<ul>
+<li>cargar una página web, </li>
+<li>iniciar sesión, </li>
+</ul>
+<p>o mucho más complejas, </p>
+<ul>
+<li>verificando notificaciones vía email, </li>
+<li>pagos en línea, etcétera.</li>
+</ul>
+<p>Las pruebas end-to-end son muy útiles, pero son costosas de realizar; y pueden ser difíciles de mantener cuando son automatizadas. </p>
+<p>Por tanto, es recomendable tener unas pocas pruebas end-to-end, que resulten claves para nuestra aplicación,
+y confiar en mayor medida en las pruebas a bajo nivel (como pruebas unitarias y pruebas de integración) para detectar rápidamente aquellos cambios que impactan negativamente sobre nuestra aplicación.</p>
+<h3>Regression testing</h3>
+<p>Las <strong>pruebas de regresión</strong> verifican un conjunto de escenarios que funcionaron correctamente en el pasado, para asegurar que continúen así.</p>
+<ul>
+<li>No debemos agregar nuevas características a nuestro regression test suite hasta que las pruebas de regresión actuales pasen.</li>
+<li>Una falla en una prueba de regresión significa que una nueva funcionalidad ha afectado otra funcionalidad que era correcta en el pasado, causando una "regresión".</li>
+<li>Una falla en un test de regresión podría indicar también que hemos vuelto a producir un bug que ya había sido resuelto en el pasado.</li>
+</ul>
+<h3>Smoke testing</h3>
+<p>Las <strong>pruebas de humo</strong> son pruebas que verifican la funcionalidad básica de una aplicación. </p>
+<ul>
+<li>Se pretende que sean pruebas rápidas de ejecutar, </li>
+<li>y su objetivo es asegurar que las características más importantes del sistema funcionan como se espera.</li>
+</ul>
+<p>Los smoke tests pueden ser muy útiles:</p>
+<ul>
+<li>justo después de construir una nueva versión de nuestra aplicación, para decidir si estamos listos para ejecutar pruebas más costosas, </li>
+<li>o justo después de un proceso de deployment, para asegurar que la aplicación está funcionando adecuadamente en el nuevo entorno desplegado.</li>
+</ul>
+<p>Más detalles sobre los smoke tests:</p>
+<ul>
+<li>Son un conjunto de pruebas automatizadas de alto nivel, y seleccionadas estrictamente.</li>
+<li>Tienen lugar entre las pruebas de integración y las pruebas de regresión. Y están ahí para verificar que la funcionalidad principal del sitio opera como es debido.</li>
+<li>Se dice que el término "prueba de humo" tiene su origen en la plomería. Si se podía ver humo saliendo de una tubería, significaba que tenía fugas y era necesario hacer reparaciones.</li>
+</ul>
+<p>No son pruebas específicas. Son pruebas significativas que ocurren a un nivel más general.
+Idealmente deben ejecutarse cada día, en cada uno de los entornos.</p>
+<p>De modo que si un smoke test falla, significa que hay un grave problema con la funcionalidad de nuestro software. Por tanto no deberíamos desplegar cambios nuevos hasta que los fallos sean atendidos.
+Y si fallan en producción, su corrección tendrá la más alta prioridad.</p>
+<h3>Acceptance testing</h3>
+<p>Las <strong>pruebas de aceptación</strong> son pruebas formales, ejecutadas para verificar si un sistema satisface sus requerimientos de negocio. </p>
+<p>Estas pruebas requieren que el software se encuentre en funcionamiento, y se centran en replicar el comportamiento de los usuarios, a fin de rechazar cambios si no se cumplen los objetivos. Estos objetivos pueden ir más allá de obtener una respuesta específica, y medir el rendimiento del sistema.</p>
+<p>Las pruebas de aceptación:</p>
+<ul>
+<li>Son usualmente un conjunto de pruebas manuales que se realizan luego de que una fase de desarrollo ha finalizado (de modo que se pueda volver rápidamente e iterar si algo no está correcto).</li>
+<li>Verifican que la características de nuestro software estén alineadas con todas las especificaciones iniciales y criterios de aceptación.</li>
+<li>Suelen realizarse luego de las pruebas unitarias o de integración, para evitar que se avance mucho con el proceso de prueba, y determinar a tiempo si se necesitan cambios significativos.</li>
+</ul>
+<p>Para que este tipo de pruebas se lleve a cabo correctamente resulta importante que los responsables del proyecto definan los criterios de aceptación justo antes de empezar a trabajar en el mismo.
+Así mismo, cualquier requerimiento adicional que surja durante el proceso deberá verse reflejado en tales criterios de aceptación.</p>
+<h3>Performance testing</h3>
+<p>Las <strong>pruebas de rendimiento</strong> verifican cómo responde el sistema cuando éste se encuentra bajo una alta carga. </p>
+<p>Estos tests son no-funcionales, y pueden tener diversas formas para entender </p>
+<ul>
+<li>la fiabilidad, </li>
+<li>estabilidad </li>
+<li>y disponibilidad de la plataforma.</li>
+</ul>
+<p>Por ejemplo, pueden observar los tiempos de respuesta cuando se ejecuta un alto número de requests (consultas al servidor), o ver cómo se comporta el sistema ante una cantidad significativa de datos.</p>
+<p>Las pruebas de rendimiento son, por su naturaleza, bastante costosas de implementar y ejecutar, pero pueden ayudarnos a comprender si nuevos cambios van a degradar nuestro sistema (como hacerlo más lento o aumentar su consumo de recursos).</p>
+<p>Las pruebas de rendimiento no fallan del mismo modo en que lo hacen las demás pruebas. En vez de ello su objetivo es recolectar métricas y definir objetivos por alcanzar.</p>
+<p>Generalmente es buena idea realizar pruebas de este tipo ante nuevos lanzamientos y/o refactorizaciones importantes en el código.</p>
+<h2>¿Por qué y cómo automatizar nuestras pruebas?</h2>
+<p>Una persona puede ejecutar todas las pruebas antes mencionadas, pero resultaría muy costoso y contra-productivo hacer ello. </p>
+<p>Como humanos, tenemos una capacidad limitada para realizar una gran cantidad de acciones, de manera repetible y confiable.
+Pero una máquina puede fácilmente hacer ello, y probar que nuestro formulario de inicio de sesión funciona correctamente, incluso en el intento #1000, y sin quejarse.</p>
+<p>Para automatizar nuestros tests, primero necesitamos escribirlos mediante código de programación usando un testing framework que se adapte a nuestra aplicación. </p>
+<ul>
+<li>PHPUnit, Mocha, RSpec son ejemplos de testing frameworks,</li>
+<li>que podemos usar para escribir pruebas automatizadas en PHP, Javascript, y Ruby respectivamente. </li>
+</ul>
+<p>Existen muchas opciones por cada lenguaje.</p>
+<p>Si nuestras pruebas pueden iniciarse ejecutando un script desde la terminal, entonces podemos ejecutarlas también usando un <strong>servidor de continuous integration</strong> o un <strong>servicio en la nube</strong> dedicado a ello.
+Estas herramientas pueden monitorear nuestros repositorios y ejecutar nuestro test suite (conjunto de pruebas) cada vez que nuevos cambios sean subidos.</p>
+<h2>Exploratory testing</h2>
+<p>Mientras más características y mejoras agreguemos a nuestro código, mayor será la necesidad de escribir tests para asegurar que nuestro sistema funcione apropiadamente.</p>
+<p>Así mismo, cada vez que corregimos un bug es prudente comprobar que otros que teníamos anteriormente no vuelvan a aparecer.</p>
+<p>Automatizar es clave para hacer esto posible, y escribir pruebas (tarde o temprano) será parte de nuestro development workflow.</p>
+<p>Entonces la pregunta es: ¿vale la pena hacer pruebas manuales hoy en día? </p>
+<p>Y la respuésta es: sí, y deben enfocarse en lo que se conoce como "exploratory testing", donde el objetivo es descubrir errores que no son muy obvios.</p>
+<p>Una sesión de <em>pruebas exploratorias</em> no debería exceder de 2 horas, y es necesario tener bien definido el alcance, para ayudar a los evaluadores a centrarse en un área específica del software. </p>
+<p>Una vez que todos los testers (evaluadores) han sido informados, depende de ellos probar varias acciones para verificar cómo se comporta el sistema.</p>
+<p>Este tipo de pruebas resulta costoso por naturaleza, pero permite descubrir errores en la UI y verificar flujos complejos que siguen los usuarios. </p>
+<p>Resulta útil principalmente cuando se agrega una nueva característica importante a nuestra aplicación, para ayudar a comprender cómo se comporta en casos extremos.</p>
+<h2>Conclusión</h2>
+<p>Así como es importante verificar que nuestros usuarios pueden usar nuestra aplicación (pueden iniciar sesión, enviar mensajes, y/o actualizar datos), es igual de importante verificar que nuestro sistema siga funcionando adecuadamente cuando se ingresen datos incorrectos o se realicen acciones inesperadas. </p>
+<p>Necesitamos anticipar qué ocurrirá cuando un usuario cometa un error </p>
+<ul>
+<li>ingresando datos incoheretes, </li>
+<li>intente guardar un formulario sin completar todos los campos, </li>
+<li>o vaya de un paso a otro sin seguir una secuencia, con o sin malas intenciones. </li>
+</ul>
+<p>Así mismo, necesitamos verificar si es posible para un usuario comprometer datos (es decir, tener acceso a recursos que no deben). </p>
+<p>Entonces: </p>
+<p>Un buen conjunto de pruebas debería "romper nuestra aplicación" y ayudarnos a entender sus límites.</p>
+<p>Y por último, las pruebas son código también, por lo que no debemos olvidarlas durante los "code review", ya que son un paso importante para el pase a producción.</p>
+<h2>Referencias</h2>
+<ul>
+<li><a href="https://dev.to/thejessleigh/different-types-of-testing-explained-1ljo" target="_blank">Different types of testing explained</a></li>
+<li><a href="https://www.atlassian.com/continuous-delivery/software-testing/types-of-software-testing" target="_blank">The different types of software testing</a></li>
+</ul>
+
+                                    <p class="mt-3 mb-0">
+                                                    <a href="https://programacionymas.com/tags/testing" class="chip primary-color-dark white-text" title="Ver artículos con hashtag #testing">
+        # testing 
+    
+    </a>                                            </p>
+                            </div>  
+        </div>
+        <div class="col-md-3">
+            <div class="sticky-article">
+                <div class="card mb-2 mt-2 mt-md-0">
+    <div class="card-body elegant-color-dark white-text text-center">
+        <img src="./QATesting_files/pym_hat_gray_bg.jpg" width="80" alt="Logo de Programación y más" class="m-auto rounded-circle z-depth-1">
+
+        <p class="mt-1">Comparte este post si te fue de ayuda 🙂.</p>
+    </div>
+</div>
+                                    <div class="card flex-1 wow fadeIn" data-wow-delay="0.1s">
+    <div class="card-body elegant-color-dark text-white">
+        <p class="h4-responsive mt-0 card-title">Regístrate</p>
+        <p>Accede a <strong>todos los cursos</strong>, y resuelve todas tus dudas.</p>
+
+        <div class="text-center">
+            <button class="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target="#modalLRForm">
+                <i class="fas fa-sign-in-alt mr-1"></i>
+                Ingresar
+            </button>
+        </div>
+    </div>
+</div>                            </div>
+        </div>
+    </div>
+
+    <div class="py-3 px-3 mt-2 mt-md-3 mb-2 elegant-color-dark">
+        <p class="h5-responsive my-0 white-text text-center">
+            Cursos Recomendados <i class="fas fa-bolt ml-1"></i>
+        </p>
+        <div class="row">
+            <div class="col-12 col-md-4">
+    <div class="card mt-2">
+        <a href="https://programacionymas.com/series/curso-intensivo-de-laravel-y-android-usando-jwt-y-kotlin">
+        <img src="./QATesting_files/laravel-android-citas" class="card-img-top" width="480" data-src="https://res.cloudinary.com/pym/image/upload/c_scale,f_auto,q_auto,w_480/v1/series/laravel-android-citas" alt="Imagen para el curso Laravel y Android">
+        </a>
+        <div class="card-body text-center">
+            <p class="h4-responsive mb-1 mb-md-2 mt-0">
+                <a class="black-text" href="https://programacionymas.com/series/curso-intensivo-de-laravel-y-android-usando-jwt-y-kotlin">Laravel y Android</a>
+            </p>
+
+            <p class="card-text">Curso intensivo. Incluye el desarrollo de una API, su consumo, y autenticación vía JWT. También vemos Kotlin desde 0.</p>
+
+            <a href="https://programacionymas.com/series/curso-intensivo-de-laravel-y-android-usando-jwt-y-kotlin" class="btn btn-primary">
+                <i class="fas fa-play-circle mr-1"></i>
+                Iniciar curso
+            </a>
+        </div>
+    </div>
+</div>            <div class="col-12 col-md-4">
+    <div class="card mt-2">
+        <a href="https://programacionymas.com/series/javascript-curso-practico-y-completo">
+        <img src="./QATesting_files/js-practico-3juegos" class="card-img-top" width="480" data-src="https://res.cloudinary.com/pym/image/upload/c_scale,f_auto,q_auto,w_480/v1/series/js-practico-3juegos" alt="Imagen para el curso Aprende Javascript">
+        </a>
+        <div class="card-body text-center">
+            <p class="h4-responsive mb-1 mb-md-2 mt-0">
+                <a class="black-text" href="https://programacionymas.com/series/javascript-curso-practico-y-completo">Aprende Javascript</a>
+            </p>
+
+            <p class="card-text">Domina JS con este curso práctico y completo! Fundamentos, ejemplos reales, ES6+, POO, Ajax, Webpack, NPM y más.</p>
+
+            <a href="https://programacionymas.com/series/javascript-curso-practico-y-completo" class="btn btn-primary">
+                <i class="fas fa-play-circle mr-1"></i>
+                Iniciar curso
+            </a>
+        </div>
+    </div>
+</div>            <div class="col-12 col-md-4">
+    <div class="card mt-2">
+        <a href="https://programacionymas.com/series/curso-practico-de-docker-y-microservicios-desde-cero">
+        <img src="./QATesting_files/docker-microservicios" class="card-img-top" width="480" data-src="https://res.cloudinary.com/pym/image/upload/c_scale,f_auto,q_auto,w_480/v1/series/docker-microservicios" alt="Imagen para el curso Docker y Microservicios">
+        </a>
+        <div class="card-body text-center">
+            <p class="h4-responsive mb-1 mb-md-2 mt-0">
+                <a class="black-text" href="https://programacionymas.com/series/curso-practico-de-docker-y-microservicios-desde-cero">Docker y Microservicios</a>
+            </p>
+
+            <p class="card-text">Aprende por qué es importante y cómo funciona Docker, con este nuevo curso práctico!</p>
+
+            <a href="https://programacionymas.com/series/curso-practico-de-docker-y-microservicios-desde-cero" class="btn btn-primary">
+                <i class="fas fa-play-circle mr-1"></i>
+                Iniciar curso
+            </a>
+        </div>
+    </div>
+</div>    </div>
+    </div>
+</div>
+
+ 
+                        <div id="bio_ep" style="display: none;"><div id="bio_ep_close">X</div>
+    <div class="sidebar">
+        <img alt="Curso gratuito de Laravel" src="./QATesting_files/aprende-laravel-curso.jpg">
+    </div>
+    <div class="content">
+        <p class="h2-responsive">Espera un momento ...</p>
+        <p class="h5-responsive">¿Te gustaría llevar mi curso de Laravel, gratis?</p>
+        <p>Sólo debes ingresar tus datos:</p>
+        <form action="https://programacionymas.com/register" method="get">
+            <div class="form-group">
+                <label for="pop_up_name">Nombre</label>
+                <input id="pop_up_name" type="text" class="form-control" name="name" required="">
+            </div>
+            <div class="form-group">
+                <label for="pop_up_email">E-mail</label>
+                <input id="pop_up_email" type="email" class="form-control" name="email" required="">
+            </div>
+            <button class="btn btn-primary">
+                <i class="fas fa-bolt mr-1"></i> Sí, me apunto 🙂
+            </button>
+        </form>
+    </div>
+</div>            
+    <div class="modal fade" id="modalLRForm" tabindex="-1" role="dialog">
+    <div class="modal-dialog cascading-modal" role="document">
+        <div class="modal-content">
+            <div class="modal-c-tabs">
+
+                
+                <ul class="nav nav-tabs tabs-2 default-color" role="tablist">
+                    <li class="nav-item waves-effect waves-light">
+                        <a id="tabLoginLink" class="nav-link" data-toggle="tab" href="https://programacionymas.com/blog/tipos-de-testing-en-desarrollo-de-software#panelLogin" role="tab" aria-expanded="true">
+                            <i class="fas fa-user mr-1"></i> Login
+                        </a>
+                    </li>
+                    <li class="nav-item waves-effect waves-light">
+                        <a id="tabRegisterLink" class="nav-link active" data-toggle="tab" href="https://programacionymas.com/blog/tipos-de-testing-en-desarrollo-de-software#panelRegister" role="tab" aria-expanded="false">
+                            <i class="fas fa-user-plus mr-1"></i> Registro
+                        </a>
+                    </li>
+                </ul>
+
+                
+                <div class="tab-content">
+
+                    
+                    <div class="tab-pane fade" id="panelLogin" role="tabpanel" aria-expanded="true">
+                        <div class="modal-body">
+    <form id="formLogin" data-sessions="https://programacionymas.com/sessions">
+        <p class="mb-2">Inicia sesión con tus datos:</p>
+        <div class="md-form form-sm">
+            <i class="fas fa-envelope prefix"></i>
+            <input type="email" name="email" class="form-control" id="modal-login-email" required="">
+            <label for="modal-login-email">E-mail</label>
+        </div>
+        <div class="md-form form-sm mb-0">
+            <i class="fas fa-lock prefix"></i>
+            <input type="password" name="password" class="form-control mb-0" id="modal-login-password" required="">
+            <label for="modal-login-password">Contraseña</label>
+            <p class="small text-right mb-0 mr-3">
+                <a href="https://programacionymas.com/forgot-password" class="blue-text">¿Olvidaste tu contraseña?</a>
+            </p>
+        </div>
+        <div class="md-form form-sm">
+            <input type="checkbox" id="modal-login-remember" name="remember">
+            <label for="modal-login-remember">Recordar sesión</label>
+        </div>
+        <div class="text-center mt-2">
+            <button class="btn btn-info waves-effect waves-light" id="btnLogin">
+                Ingresa <i class="fas fa-sign-in-alt ml-1"></i>
+            </button>
+            <p class="red-text mb-0" id="pLoginError" style="display: none">Los datos ingresados son incorrectos.</p>
+            <p class="green-text mb-0" id="pLoginSuccess" style="display: none">Bienvenido!</p>
+        </div>
+    </form>
+</div>
+                    </div>
+
+                    
+                    <div class="tab-pane fade in active show" id="panelRegister" role="tabpanel" aria-expanded="false">
+                        <div class="modal-body">
+    <form action="https://programacionymas.com/register" method="get">
+        <p class="mb-2">Regístrate con correo:</p>
+        
+        <div class="md-form form-sm">
+            <i class="fas fa-user prefix"></i>
+            <input type="text" name="name" class="form-control" id="modal-register-name" required="">
+            <label for="modal-register-name">Nombre</label>
+        </div>
+
+        <div class="md-form form-sm">
+            <i class="fas fa-envelope prefix"></i>
+            <input type="email" name="email" class="form-control" id="modal-register-email" required="">
+            <label for="modal-register-email">E-mail</label>
+        </div>
+        
+        <input type="hidden" name="redirect_to" value="https://programacionymas.com/blog/tipos-de-testing-en-desarrollo-de-software">
+
+        <div class="text-center form-sm mt-2">
+            <button class="btn btn-info waves-effect waves-light">Regístrate <i class="fas fa-sign-in-alt ml-1"></i></button>
+        </div>
+    </form>
+</div>
+                    </div>
+
+                </div>
+
+                                <div class="modal-footer justify-content-center">
+                    <p class="align-middle mb-0 d-none d-sm-block">O usando tu cuenta de Google:</p>
+
+                    <div class="g_id_signin" data-type="standard" data-size="large" data-theme="outline" data-text="continue_with" data-shape="rectangular" data-logo_alignment="left"><div class="S9gUrf-YoZ4jf" style="position: relative;"><div><div tabindex="0" role="button" aria-labelledby="button-label" class="nsm7Bb-HzV7m-LgbsSe  hJDwNd-SxQuSe i5vt6e-Ia7Qfc uaxL4e-RbRzK"><div class="nsm7Bb-HzV7m-LgbsSe-MJoBVe"></div><div class="nsm7Bb-HzV7m-LgbsSe-bN97Pc-sM5MNb "><div class="nsm7Bb-HzV7m-LgbsSe-Bz112c"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" class="LgbsSe-Bz112c"><g><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path><path fill="none" d="M0 0h48v48H0z"></path></g></svg></div><span class="nsm7Bb-HzV7m-LgbsSe-BPrWId">Continuar con Google</span><span class="L6cTce" id="button-label">Continuar con Google</span></div></div></div><iframe src="./QATesting_files/button.html" allow="identity-credentials-get" id="gsi_691195_834139" title="Botón Iniciar sesión con Google" style="display: block; position: relative; top: 0px; left: 0px; height: 0px; width: 0px; border: 0px;"></iframe></div></div>
+                </div>
+                            </div>
+        </div>
+    </div>
+</div>
+<footer id="footer" class="page-footer elegant-color-dark center-on-small-only">
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-3">
+                <p class="column-title white-text"><strong>Series por categoría</strong></p>
+                <ul>
+                                        <li>
+                        <a href="https://programacionymas.com/series/categorias/bases-de-datos">
+                            Bases de datos
+                        </a>
+                    </li>
+                                        <li>
+                        <a href="https://programacionymas.com/series/categorias/php">
+                            PHP
+                        </a>
+                    </li>
+                                        <li>
+                        <a href="https://programacionymas.com/series/categorias/laravel">
+                            Laravel
+                        </a>
+                    </li>
+                                        <li>
+                        <a href="https://programacionymas.com/series/categorias/java">
+                            Java
+                        </a>
+                    </li>
+                                        <li>
+                        <a href="https://programacionymas.com/series/categorias/android">
+                            Android
+                        </a>
+                    </li>
+                                        <li>
+                        <a href="https://programacionymas.com/series/categorias/javascript">
+                            Javascript
+                        </a>
+                    </li>
+                                        <li>
+                        <a href="https://programacionymas.com/series/categorias/herramientas-desarrollo-software">
+                            Herramientas
+                        </a>
+                    </li>
+                                        <li>
+                        <a href="https://programacionymas.com/series/categorias/frontend">
+                            Frontend
+                        </a>
+                    </li>
+                                    </ul>
+            </div>
+
+            <hr class="w-100 clearfix d-md-none">
+
+            <div class="col-md-3">
+                <p class="column-title white-text"><strong>Categorías del blog</strong></p>
+                <ul>
+                                            <li>
+                            <a href="https://programacionymas.com/categorias/desarrollo-web">
+                                Desarrollo web
+                            </a>
+                        </li>
+                                            <li>
+                            <a href="https://programacionymas.com/categorias/desarrollo-movil">
+                                Desarrollo móvil
+                            </a>
+                        </li>
+                                            <li>
+                            <a href="https://programacionymas.com/categorias/productividad-y-motivacion">
+                                Productividad y motivación
+                            </a>
+                        </li>
+                                            <li>
+                            <a href="https://programacionymas.com/categorias/buenas-practicas">
+                                Buenas prácticas
+                            </a>
+                        </li>
+                                            <li>
+                            <a href="https://programacionymas.com/categorias/bitacora">
+                                Bitácora
+                            </a>
+                        </li>
+                                            <li>
+                            <a href="https://programacionymas.com/categorias/bases-de-datos">
+                                Bases de datos
+                            </a>
+                        </li>
+                                            <li>
+                            <a href="https://programacionymas.com/categorias/devops">
+                                DevOps
+                            </a>
+                        </li>
+                                    </ul>
+            </div>
+
+            <hr class="w-100 clearfix d-md-none">
+
+            <div class="col-md-3 mb-1">
+                <p class="column-title white-text"><strong>Guías de inicio</strong></p>
+                <ul>
+                    <li>
+                        <a href="https://programacionymas.com/guia-de-inicio/programacion-y-mas">
+                            Guía de inicio en programación
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://programacionymas.com/guia-de-inicio/desarrollo-web">
+                            Inicio en desarrollo web
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://programacionymas.com/frontend-vs-backend">
+                            Frontend VS Backend
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <hr class="w-100 clearfix d-md-none">
+
+            <div class="col-md-3">
+                <p class="column-title white-text"><strong>Otros enlaces</strong></p>
+                <ul>
+                    <li>
+                        <a href="https://programacionymas.com/planes">
+                            Planes de membresía
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://programacionymas.com/asesoria" title="¿Necesitas asesoría?">
+                            Clases particulares
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://desarrollo.programacionymas.com/" target="_blank" title="¿Necesitas una app web y/o móvil?">
+                            Servicio de desarrollo
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://programacionymas.com/privacy-policy">
+                            Política de privacidad
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://programacionymas.com/contacto" title="Formulario de contacto" target="_blank">
+                            Reporta un error
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://programacionymas.com/memes" title="Memes">
+                            Memes
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <hr>
+
+    
+
+    <div class="text-center mb-2">
+        <a target="_blank" href="https://www.facebook.com/programacionymas" aria-label="Visitar en Facebook" class="btn-floating btn-sm elegant-color"><i class="fab fa-facebook left"></i></a>
+        <a target="_blank" href="https://www.youtube.com/@programacionymas" aria-label="Visitar en YouTube" class="btn-floating btn-sm elegant-color"><i class="fab fa-youtube left"></i></a>
+        <a target="_blank" href="https://www.tiktok.com/@programacionymas" aria-label="Visitar en TikTok" class="btn-floating btn-sm elegant-color"><i class="fab fa-tiktok left"></i></a>
+        <a target="_blank" href="https://www.instagram.com/programacionymas" aria-label="Visitar en Instagram" class="btn-floating btn-sm elegant-color"><i class="fab fa-instagram left"></i></a>
+        <a target="_blank" href="https://www.github.com/JCarlosR" aria-label="Visitar en GitHub" class="btn-floating btn-sm elegant-color"><i class="fab fa-github left"></i></a>
+    </div>
+
+    <div class="footer-copyright">
+        <div class="container-fluid">
+            © 2017 - 2023 Programación y más. Todos los derechos reservados.
+        </div>
+    </div>
+</footer>
+<script async="" src="./QATesting_files/js"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-0S0SF4MKJE', {
+                    });
+</script>
+<script src="./QATesting_files/all.js.descarga" defer=""></script>
+
+    <script src="./QATesting_files/lazy-load-images.js.descarga" defer=""></script>
+
+    
+    <script>
+    function initShareThis() {
+        (function() {
+            var d = document, s = d.createElement('script');
+            s.src = '//platform-api.sharethis.com/js/sharethis.js#property=58f91d5a2fe73a0012cb5106&product=sticky-share-buttons';
+            s.async = true;
+            (d.head || d.body).appendChild(s);
+        })();
+    }
+
+    (function () {
+        const windowScrollEvent = function() {
+            const
+                heightOfWindow = window.innerHeight,
+                contentScrolled = window.pageYOffset,
+                bodyHeight = document.body.offsetHeight;
+
+            const
+                total = bodyHeight - heightOfWindow,
+                got = contentScrolled,
+                percent = got/total * 100;
+
+            if (percent > 25) {
+                
+                initShareThis();
+                window.removeEventListener('scroll', windowScrollEvent);
+            }
+        };
+
+        window.addEventListener('scroll', windowScrollEvent);
+    })();
+</script>
+
+    
+    <div id="g_id_onload" data-client_id="501914648900-pgvr18e8sblv7r2arb41e43h5ms7ips6.apps.googleusercontent.com" data-login_uri="https://programacionymas.com/login/google" data-auto_prompt="true" data-cancel_on_tap_outside="false">
+    </div>
+    
+    <script>
+    (function () {
+        let gsiLoaded = false;
+        let gsiTimeout = null;
+
+        function initGSI() {
+            if (gsiLoaded) return;
+            gsiLoaded = true;
+
+            const d = document, s = d.createElement('script');
+            s.src = '//accounts.google.com/gsi/client';
+            s.defer = true;
+            (d.head || d.body).appendChild(s);
+
+            clearTimeout(gsiTimeout);
+            window.removeEventListener('click', initGSI);
+        }
+
+        
+        window.onload = function() {
+            const showsOneTap = document.getElementById('g_id_onload').getAttribute('data-auto_prompt') === "true";            
+            const delayMs = showsOneTap ? 10_000 : 2_500;
+            
+
+            
+            gsiTimeout = setTimeout(initGSI, delayMs);
+            window.addEventListener('click', initGSI);
+        };
+    })();
+</script>
+
+
+            
+        <script src="./QATesting_files/bioep.min.js.descarga" onload="initBioEp()" defer=""></script>
+        <script>
+            function initBioEp() {
+                bioEp.init({
+                    cookieExp: 15,
+                    onPopup: function () {
+                        const popupImg = document.querySelector('#bio_ep .sidebar img');
+
+                        if (popupImg.dataset.src) {
+                            popupImg.src = popupImg.dataset.src;
+                            popupImg.removeAttribute("data-src");
+                        }
+                    }
+                });
+            }
+        </script>
+    
+
+<div id="bio_ep_bg" style="display: none;"></div><div class="hiddendiv common"></div></body></html>
